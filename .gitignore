@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+
+# Env files (secrets) — only .env.example is committed
+.env
+.env*.local
+.env.*.local
+
+# Build output
+.turbo/
+.next/
+out/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Expo / React Native
+.expo/
+.expo-shared/
+web-build/
+expo-env.d.ts
+/apps/mobile/android/
+/apps/mobile/ios/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Supabase
+supabase/.temp/
+supabase/.branches/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+*.log
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Claude Code (personal settings)
+.claude/settings.local.json
+
+# Impeccable (per-machine state)
+.impeccable/*.local.json
+.impeccable/*.cache.json

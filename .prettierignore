@@ -1,0 +1,14 @@
+pnpm-lock.yaml
+.turbo
+.next
+.expo
+dist
+build
+coverage
+supabase/migrations
+packages/shared/src/database.types.ts
+.claude
+CLAUDE.md
+schema_mvp.sql
+apps/*/AGENTS.md
+.impeccable

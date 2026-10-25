@@ -1,0 +1,25 @@
+{
+  "name": "crumbz",
+  "private": true,
+  "packageManager": "pnpm@11.1.2",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "db:push": "supabase db push",
+    "db:types": "supabase gen types typescript --project-id uxtklaqrfpjtyirogbqn --schema public > packages/shared/src/database.types.ts"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10",
+    "supabase": "^2.122.0",
+    "turbo": "^2.11.10",
+    "typescript": "~6.0.3"
+  }
+}

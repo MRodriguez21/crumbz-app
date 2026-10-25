@@ -1,0 +1,15 @@
+# Documentación de crumbz
+
+Guías para trabajar en el proyecto. Las reglas de negocio, el alcance del MVP y las convenciones obligatorias están en [`CLAUDE.md`](../CLAUDE.md); aquí está el "cómo".
+
+| Guía                                        | Para qué                                                        |
+| ------------------------------------------- | --------------------------------------------------------------- |
+| [Primeros pasos](getting-started.md)        | Instalar, configurar variables y levantar la app móvil y la web |
+| [Arquitectura](architecture.md)             | Cómo se conectan las piezas del monorepo y por qué              |
+| [Stack tecnológico](tech-stack.md)          | Qué usamos, en qué versión y por qué                            |
+| [Base de datos](database.md)                | Esquema, migraciones, seguridad (RLS) y tipos                   |
+| [App móvil](mobile.md)                      | Expo, Expo Go, builds de desarrollo y EAS                       |
+| [Decisiones técnicas](decisions.md)         | Registro de decisiones y su motivo                              |
+| [Solución de problemas](troubleshooting.md) | Errores conocidos y cómo resolverlos                            |
+
+Mantén estas guías al día cuando cambie algo que describen. Si una guía contradice a `CLAUDE.md`, manda `CLAUDE.md` y hay que corregir la guía.

@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+  - packages/*
+
+# Expo/Metro resolve packages more reliably with a flat node_modules in a monorepo.
+nodeLinker: hoisted
+
+# Dependencies allowed to run install scripts (pnpm blocks them by default).
+allowBuilds:
+  supabase: true
+  sharp: false
+  unrs-resolver: false
