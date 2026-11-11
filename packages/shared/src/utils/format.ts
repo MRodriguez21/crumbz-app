@@ -17,6 +17,11 @@ export function formatUsd(amount: number): string {
   return `${sign}$${grouped}${decPart ? `,${decPart}` : ''}`;
 }
 
+/** Formats a 1–10 score with one decimal and a decimal comma: `8,6`. */
+export function formatScore(score: number): string {
+  return score.toFixed(1).replace('.', ',');
+}
+
 /** Formats a spend range per person, e.g. `$10 – $20`. */
 export function formatUsdRange(min: number, max: number): string {
   return min === max ? formatUsd(min) : `${formatUsd(min)} – ${formatUsd(max)}`;

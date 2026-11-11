@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { formatDate, formatUsd, formatUsdRange } from './format';
+import { formatDate, formatScore, formatUsd, formatUsdRange } from './format';
+
+describe('formatScore', () => {
+  it('uses one decimal and a decimal comma', () => {
+    expect(formatScore(8.6)).toBe('8,6');
+    expect(formatScore(9)).toBe('9,0');
+    expect(formatScore(7.25)).toBe('7,3');
+  });
+});
 
 describe('formatUsd', () => {
   it('uses comma as decimal separator', () => {

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es-VE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Lámina de anuario — perfil del lugar</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..800&display=swap" rel="stylesheet">
+<style>
+  :root { --ground: #F5F4F6; --ink: #16181A; --ink-2: #55585C; --seal: #DCDDF3; --line: #C9C7C4; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 390px; height: 844px; overflow: hidden; }
+  body { font-family: 'Hanken Grotesk', sans-serif; background: var(--ground); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .status { height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; font-size: 13px; font-weight: 500; }
+  .appbar { height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 4px; border-bottom: 1px solid var(--line); }
+  .icon { width: 48px; height: 48px; display: grid; place-items: center; }
+  .icon svg { width: 22px; height: 22px; stroke: var(--ink); fill: none; stroke-width: 1.5; }
+  .plate { margin: 20px 16px 0; height: 230px; background: #A85A2A; position: relative; }
+  .plate .reg { position: absolute; width: 14px; height: 14px; }
+  .plate .reg::before, .plate .reg::after { content: ""; position: absolute; background: var(--ink); }
+  .plate .reg::before { left: 6px; top: 0; width: 1px; height: 14px; }
+  .plate .reg::after { top: 6px; left: 0; height: 1px; width: 14px; }
+  .r1 { left: -10px; top: -10px; } .r2 { right: -10px; top: -10px; } .r3 { left: -10px; bottom: -10px; } .r4 { right: -10px; bottom: -10px; }
+  .seal { position: absolute; right: -6px; bottom: -34px; width: 96px; height: 96px; border-radius: 50%; background: var(--seal); display: grid; place-items: center; text-align: center; }
+  .seal b { font-size: 30px; font-weight: 700; display: block; line-height: 1; }
+  .seal small { font-size: 10px; font-weight: 600; }
+  .credit { margin: 8px 16px 0; font-size: 11px; color: var(--ink-2); }
+  h1 { margin: 28px 16px 0; font-size: 36px; font-weight: 500; letter-spacing: -0.02em; }
+  .meta { margin: 4px 16px 0; font-size: 15px; color: var(--ink-2); }
+  .rows { margin: 18px 16px 0; border-top: 1px solid var(--line); }
+  .row { display: flex; justify-content: space-between; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .row span:first-child { font-size: 12px; color: var(--ink-2); font-weight: 600; }
+  .row span:last-child { font-weight: 600; text-align: right; }
+  .bar { position: absolute; left: 0; right: 0; top: 760px; height: 84px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 16px 24px; border-top: 1px solid var(--line); background: var(--ground); }
+  .btn { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; height: 48px; }
+  .btn.wa { background: var(--ink); color: #fff; }
+  .btn.post { border: 1px solid var(--ink); }
+</style>
+</head>
+<body>
+  <div class="status"><span>9:41</span><span>4G · 62%</span></div>
+  <div class="appbar">
+    <div class="icon" aria-label="Volver"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></div>
+    <div class="icon" aria-label="Compartir"><svg viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 14v6h14v-6"/></svg></div>
+  </div>
+  <div class="plate">
+    <i class="reg r1"></i><i class="reg r2"></i><i class="reg r3"></i><i class="reg r4"></i>
+    <div class="seal" aria-label="Puntaje 8,6 de 47 personas"><div><b>8,6</b><small>47 personas<br>reales</small></div></div>
+  </div>
+  <div class="credit">Foto de @mariangel.come · hace 2 días</div>
+  <h1>Smash Club</h1>
+  <div class="meta">Hamburguesas · Las Mercedes · #3 en Caracas</div>
+  <div class="rows">
+    <div class="row"><span>Gasto por persona</span><span>$12 – $18</span></div>
+    <div class="row"><span>Pagos</span><span>Pago Móvil, Zelle, efectivo $, punto</span></div>
+    <div class="row"><span>Planta eléctrica</span><span>Sí</span></div>
+    <div class="row"><span>Estacionamiento</span><span>Sí, vigilado</span></div>
+    <div class="row"><span>Delivery</span><span>Las Mercedes, Chacao, Altamira</span></div>
+  </div>
+  <nav class="bar"><div class="btn wa">WhatsApp</div><div class="btn post">Publicar visita</div></nav>
+</body>
+</html>

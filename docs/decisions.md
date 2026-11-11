@@ -4,6 +4,16 @@ Registro breve de decisiones que no son obvias leyendo el código. Agrega una en
 
 ---
 
+### 2026-10-25 — Fase 0.5 (identidad y design system)
+
+- **Mundo visual «Dicho y probado»**, elegido por el fundador en la ronda de decisión de impeccable (mano atrevida): escala neutra cálida (stone) y **un solo acento verde reservado para la prueba** (conteos de personas reales, confirmaciones) y para WhatsApp. Nada se afirma sin prueba. Reglas completas en [`DESIGN.md`](../DESIGN.md); contexto de producto en [`PRODUCT.md`](../PRODUCT.md).
+- **Pantalla ancla: perfil del lugar** (`apps/mobile/src/app/place/[slug].tsx`), con datos de ejemplo marcados en pantalla hasta la fase 4.
+- **Tokens en `packages/ui`** (fuente única para móvil y web). La web los recibe como variables CSS `--cz-*` generadas por `tokensToCss()` y mapeadas a Tailwind.
+- **Manrope en dos pesos (500/800)**, cifras tabulares; íconos con `lucide-react-native` (+ `react-native-svg`).
+- **Misma identidad en Android e iPhone**, con estructura Material y garantías de iOS (glifos de volver/compartir propios, safe area).
+- El componente `Text` usa `variant`/`tone` (no `role`/`color`) para no pisar la prop de accesibilidad `role` de React Native.
+- Verificado en emulador Android (claro, oscuro, fuente 1,3×) y revisado por el revisor de acabado de impeccable. Sin capturas de iOS todavía.
+
 ### 2026-10-25 — Fase 0
 
 - **Supabase en la nube, sin Docker local.** Un solo proyecto de desarrollo (`Crumbz`). Producción será otro proyecto, sin MCP.

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es-VE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Cifras de retícula — perfil del lugar</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100,500..800&display=swap" rel="stylesheet">
+<style>
+  :root { --blue: #1438D6; --white: #FFFFFF; --grid: rgba(157,176,255,.45); --yel: #FFD400; --ink: #0B0F2A; --ink-2: #4A5070; --ground: #F2F4FB; --line: #D5DBF0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 390px; height: 844px; overflow: hidden; }
+  body { font-family: 'Archivo', sans-serif; background: var(--ground); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .field { background-color: var(--blue); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 13px 13px; color: var(--white); padding-bottom: 18px; }
+  .status { height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; font-size: 13px; font-weight: 600; }
+  .appbar { height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 4px; }
+  .icon { width: 48px; height: 48px; display: grid; place-items: center; }
+  .icon svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 2; }
+  .numbers { display: flex; align-items: flex-end; justify-content: space-between; padding: 6px 13px 0; }
+  .numbers svg { display: block; }
+  .rk { fill: var(--yel); }
+  .sc { fill: var(--white); }
+  .lab { padding: 8px 16px 0; display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #DCE3FF; }
+  h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; padding: 14px 16px 0; }
+  .meta { padding: 4px 16px 0; font-size: 15px; color: #DCE3FF; }
+  .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); margin: 16px; border: 1px solid var(--line); }
+  .f { background: var(--white); padding: 12px; min-height: 72px; }
+  .f.w { grid-column: span 2; }
+  .f small { display: block; font-size: 12px; color: var(--ink-2); font-weight: 600; }
+  .f span { display: block; font-size: 17px; font-weight: 800; margin-top: 6px; }
+  .f span.r { text-align: right; font-size: 22px; }
+  .sq { display: inline-block; width: 12px; height: 12px; background: var(--blue); margin-right: 6px; }
+  .bar { position: absolute; left: 0; right: 0; top: 760px; height: 84px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 16px 24px; background: var(--white); border-top: 1px solid var(--line); }
+  .btn { height: 48px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; }
+  .btn.wa { background: #12A46B; color: #fff; }
+  .btn.post { background: var(--blue); color: #fff; }
+</style>
+</head>
+<body>
+  <header class="field">
+    <div class="status"><span>9:41</span><span>4G · 62%</span></div>
+    <div class="appbar">
+      <div class="icon" aria-label="Volver"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></div>
+      <div class="icon" aria-label="Compartir"><svg viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 14v6h14v-6"/></svg></div>
+    </div>
+    <div class="numbers">
+      <!-- Score "8,6" built on a 13px cell grid -->
+      <svg width="208" height="156" viewBox="0 0 16 12" aria-label="Puntaje 8,6">
+        <g class="sc">
+          <rect x="0" y="0" width="5" height="1"/><rect x="0" y="0" width="1" height="11"/><rect x="4" y="0" width="1" height="11"/><rect x="0" y="5" width="5" height="1"/><rect x="0" y="10" width="5" height="1"/>
+          <rect x="6" y="9" width="1" height="3"/>
+          <rect x="8" y="0" width="5" height="1"/><rect x="8" y="0" width="1" height="11"/><rect x="8" y="5" width="5" height="1"/><rect x="12" y="5" width="1" height="6"/><rect x="8" y="10" width="5" height="1"/>
+        </g>
+      </svg>
+      <svg width="117" height="104" viewBox="0 0 9 8" aria-label="Puesto 3">
+        <g class="rk">
+          <rect x="0" y="2" width="3" height="1"/><rect x="0" y="5" width="3" height="1"/><rect x="0.5" y="1" width="1" height="6"/><rect x="1.5" y="1" width="1" height="6"/>
+          <rect x="4" y="0" width="5" height="1"/><rect x="8" y="0" width="1" height="8"/><rect x="5" y="3.5" width="4" height="1"/><rect x="4" y="7" width="5" height="1"/>
+        </g>
+      </svg>
+    </div>
+    <div class="lab"><span>de 47 personas reales</span><span>en Hamburguesas · Caracas</span></div>
+    <h1>Smash Club</h1>
+    <div class="meta">Hamburguesas · Las Mercedes · 1,2 km</div>
+  </header>
+  <section class="facts">
+    <div class="f"><small>Gasto por persona</small><span class="r">$12–18</span></div>
+    <div class="f"><small>Planta eléctrica</small><span><i class="sq"></i>Tiene</span></div>
+    <div class="f w"><small>Pagos</small><span>Pago Móvil · Zelle · Efectivo $ · Punto</span></div>
+    <div class="f"><small>Estacionamiento</small><span><i class="sq"></i>Vigilado</span></div>
+    <div class="f"><small>Delivery</small><span>3 zonas</span></div>
+  </section>
+  <nav class="bar"><div class="btn wa">WhatsApp</div><div class="btn post">Publicar visita</div></nav>
+</body>
+</html>

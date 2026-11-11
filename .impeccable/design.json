@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-25T00:00:00Z",
+  "title": "Design System: crumbz",
+  "extensions": {
+    "colorMeta": {
+      "background": { "role": "neutral", "displayName": "Stone Paper", "canonical": "#FAFAF9", "tonalRamp": ["#141210", "#1C1917", "#292524", "#44403C", "#6A625D", "#A8A29E", "#E7E5E4", "#FAFAF9"] },
+      "surface": { "role": "neutral", "displayName": "Warm Ash", "canonical": "#F0EFED", "tonalRamp": ["#141210", "#1F1C1A", "#292524", "#44403C", "#78716C", "#D6D3D1", "#F0EFED", "#FAFAF9"] },
+      "surface-raised": { "role": "neutral", "displayName": "Bare White", "canonical": "#FFFFFF", "tonalRamp": ["#141210", "#1C1917", "#292524", "#44403C", "#78716C", "#D6D3D1", "#F5F5F4", "#FFFFFF"] },
+      "line": { "role": "neutral", "displayName": "Hairline Stone", "canonical": "#E7E5E4", "tonalRamp": ["#141210", "#1F1C1A", "#2E2A27", "#44403C", "#78716C", "#A8A29E", "#D6D3D1", "#E7E5E4"] },
+      "text": { "role": "neutral", "displayName": "Ink Stone", "canonical": "#1C1917", "tonalRamp": ["#141210", "#1C1917", "#292524", "#44403C", "#6A625D", "#A8A29E", "#E7E5E4", "#F5F5F4"] },
+      "text-muted": { "role": "neutral", "displayName": "Muted Stone", "canonical": "#6A625D", "tonalRamp": ["#141210", "#292524", "#44403C", "#6A625D", "#78716C", "#A8A29E", "#D6D3D1", "#F5F5F4"] },
+      "inverse": { "role": "neutral", "displayName": "Inverse Ink", "canonical": "#1C1917", "tonalRamp": ["#141210", "#1C1917", "#292524", "#44403C", "#6A625D", "#A8A29E", "#E7E5E4", "#F5F5F4"] },
+      "photo-placeholder": { "role": "neutral", "displayName": "Plate Stone", "canonical": "#D6D3D1", "tonalRamp": ["#141210", "#292524", "#44403C", "#6A625D", "#A8A29E", "#D6D3D1", "#E7E5E4", "#FAFAF9"] },
+      "proof": { "role": "primary", "displayName": "Proof Green", "canonical": "#1F7A4D", "tonalRamp": ["#0B1F14", "#15301F", "#17603C", "#1F7A4D", "#4CC38A", "#7FD8A8", "#BFE8D1", "#E3F1E9"] },
+      "proof-subtle": { "role": "primary", "displayName": "Proof Tint", "canonical": "#E3F1E9", "tonalRamp": ["#0B1F14", "#15301F", "#17603C", "#1F7A4D", "#4CC38A", "#7FD8A8", "#BFE8D1", "#E3F1E9"] },
+      "warning": { "role": "status", "displayName": "Place-Says Amber", "canonical": "#A15C07", "tonalRamp": ["#2A1802", "#4A2A04", "#6E3F05", "#A15C07", "#C9801A", "#F0B44C", "#F7D394", "#FCEFD6"] },
+      "danger": { "role": "status", "displayName": "Danger Red", "canonical": "#B42318", "tonalRamp": ["#2B0805", "#55110B", "#80190F", "#B42318", "#D9463A", "#F97066", "#FBB0AA", "#FEE7E5"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The score figure only. Tabular figures." },
+      "headline": { "displayName": "Headline", "purpose": "Place name; app name on the home screen." },
+      "title": { "displayName": "Title", "purpose": "Section and empty-state titles." },
+      "body": { "displayName": "Body", "purpose": "Running text and button labels (500)." },
+      "body-strong": { "displayName": "Body Strong", "purpose": "The claim in a proof pair (800)." },
+      "body-small": { "displayName": "Body Small", "purpose": "Meta line, rank line, evidence rows." },
+      "label": { "displayName": "Label", "purpose": "Details, distribution labels, unconfirmed and unknown proof text." },
+      "label-strong": { "displayName": "Label Strong", "purpose": "Confirmed proof counts, in green." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "proof-expand", "value": "180ms linear layout transition", "purpose": "Proof pair row grows in place when evidence unfolds." },
+      { "name": "evidence-fade", "value": "180ms fade-in", "purpose": "Evidence rows appear under a confirmed claim." },
+      { "name": "chevron-rotate", "value": "180ms, exponential ease-out, 0 to 180deg", "purpose": "Chevron flips to show the expanded state." }
+    ],
+    "breakpoints": [
+      { "name": "proof-stack", "value": "system fontScale > 1.15", "purpose": "Proof stacks under the claim instead of beside it." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Proof Button (WhatsApp)",
+      "kind": "button",
+      "refersTo": "button-proof",
+      "description": "The only filled green button on any screen; reserved for the WhatsApp action.",
+      "html": "<button class=\"ds-btn-proof\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7.9 20A9 9 0 1 0 4 16.1L2 22Z\"/></svg>WhatsApp</button>",
+      "css": ".ds-btn-proof { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 12px; min-width: 180px; border: none; border-radius: 999px; background: var(--cz-proof, #1F7A4D); color: var(--cz-on-proof, #FFFFFF); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 22px; font-weight: 500; cursor: pointer; } .ds-btn-proof:hover { opacity: 0.92; } .ds-btn-proof:active { opacity: 0.85; } .ds-btn-proof:focus-visible { outline: 2px solid var(--cz-text, #1C1917); outline-offset: 2px; }"
+    },
+    {
+      "name": "Inverse Button",
+      "kind": "button",
+      "refersTo": "button-inverse",
+      "description": "Neutral primary action in near-black.",
+      "html": "<button class=\"ds-btn-inverse\">Ver un perfil de ejemplo</button>",
+      "css": ".ds-btn-inverse { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 12px; min-width: 240px; border: none; border-radius: 999px; background: var(--cz-inverse, #1C1917); color: var(--cz-text-on-inverse, #FAFAF9); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 22px; font-weight: 500; cursor: pointer; } .ds-btn-inverse:hover { opacity: 0.92; } .ds-btn-inverse:active { opacity: 0.85; } .ds-btn-inverse:focus-visible { outline: 2px solid var(--cz-text, #1C1917); outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action with a 1px ink stroke, e.g. Publicar visita.",
+      "html": "<button class=\"ds-btn-outline\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg>Publicar visita</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 12px; min-width: 180px; border: 1px solid var(--cz-text, #1C1917); border-radius: 999px; background: transparent; color: var(--cz-text, #1C1917); font-family: 'Manrope', system-ui, sans-serif; font-size: 16px; line-height: 22px; font-weight: 500; cursor: pointer; } .ds-btn-outline:hover { background: var(--cz-pressed, rgba(28,25,23,0.08)); } .ds-btn-outline:active { opacity: 0.85; } .ds-btn-outline:focus-visible { outline: 2px solid var(--cz-text, #1C1917); outline-offset: 2px; }"
+    },
+    {
+      "name": "Icon Button",
+      "kind": "button",
+      "refersTo": "icon-button",
+      "description": "48px pill hit area, 22px stroke icon in ink; an active toggle fills with ink, never green.",
+      "html": "<button class=\"ds-icon-btn\" aria-label=\"Agregar a quiero ir\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z\"/></svg></button>",
+      "css": ".ds-icon-btn { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: none; border-radius: 999px; background: transparent; color: var(--cz-text, #1C1917); cursor: pointer; } .ds-icon-btn:hover, .ds-icon-btn:active { background: var(--cz-pressed, rgba(28,25,23,0.08)); } .ds-icon-btn[aria-pressed=\"true\"] svg { fill: currentColor; } .ds-icon-btn:focus-visible { outline: 2px solid var(--cz-text, #1C1917); outline-offset: 2px; }"
+    },
+    {
+      "name": "Score Claim",
+      "kind": "custom",
+      "refersTo": "score-claim",
+      "description": "The score as a claim with its proof: display figure, three-bucket distribution, green count of real people.",
+      "html": "<div class=\"ds-score\"><div class=\"ds-score-top\"><span class=\"ds-score-value\">8,6</span><div class=\"ds-score-dist\"><div class=\"ds-score-row\"><span class=\"ds-score-b\">9–10</span><span class=\"ds-score-track\"><span style=\"width:100%\"></span></span><span class=\"ds-score-c\">27</span></div><div class=\"ds-score-row\"><span class=\"ds-score-b\">7–8</span><span class=\"ds-score-track\"><span style=\"width:52%\"></span></span><span class=\"ds-score-c\">14</span></div><div class=\"ds-score-row\"><span class=\"ds-score-b\">1–6</span><span class=\"ds-score-track\"><span style=\"width:22%\"></span></span><span class=\"ds-score-c\">6</span></div></div></div><p class=\"ds-score-proof\"><strong>47 personas reales</strong> · solo cuenta la última visita de cada una</p></div>",
+      "css": ".ds-score { background: var(--cz-surface, #F0EFED); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px; font-family: 'Manrope', system-ui, sans-serif; color: var(--cz-text, #1C1917); max-width: 360px; } .ds-score-top { display: flex; align-items: center; gap: 16px; } .ds-score-value { min-width: 96px; font-size: 52px; line-height: 52px; font-weight: 800; letter-spacing: -2px; font-variant-numeric: tabular-nums; } .ds-score-dist { flex: 1; display: flex; flex-direction: column; gap: 4px; } .ds-score-row { display: flex; align-items: center; gap: 8px; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--cz-text-muted, #6A625D); font-variant-numeric: tabular-nums; } .ds-score-b { min-width: 32px; } .ds-score-c { min-width: 24px; text-align: right; } .ds-score-track { flex: 1; height: 6px; border-radius: 3px; background: var(--cz-line, #E7E5E4); overflow: hidden; } .ds-score-track span { display: block; height: 6px; border-radius: 3px; background: var(--cz-text, #1C1917); } .ds-score-proof { margin: 0; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--cz-text-muted, #6A625D); } .ds-score-proof strong { color: var(--cz-proof, #1F7A4D); font-weight: 800; }"
+    },
+    {
+      "name": "Proof Pair",
+      "kind": "custom",
+      "refersTo": "proof-pair",
+      "description": "Signature move: claim left, proof right in tabular figures; confirmed (green, expandable), unconfirmed (amber), unknown (muted). The chevron slot is always reserved.",
+      "html": "<div class=\"ds-pairs\"><button class=\"ds-pair\" aria-expanded=\"false\"><span class=\"ds-pair-claim\"><strong>Tiene planta</strong><small>planta eléctrica</small></span><span class=\"ds-pair-proof ds-ok\">confirmado en 12 visitas<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"m6 9 6 6 6-6\"/></svg></span></button><div class=\"ds-pair\"><span class=\"ds-pair-claim\"><strong>Estacionamiento vigilado</strong></span><span class=\"ds-pair-proof ds-warn\">solo lo dice el lugar<i></i></span></div><div class=\"ds-pair\"><span class=\"ds-pair-claim ds-unknown\"><strong>Delivery a 3 zonas</strong><small>Las Mercedes, Chacao, Altamira</small></span><span class=\"ds-pair-proof ds-none\">sin datos aún<i></i></span></div></div>",
+      "css": ".ds-pairs { font-family: 'Manrope', system-ui, sans-serif; max-width: 380px; } .ds-pair { all: unset; box-sizing: border-box; width: 100%; min-height: 48px; display: flex; align-items: center; gap: 12px; padding: 12px 0; color: var(--cz-text, #1C1917); font-variant-numeric: tabular-nums; } .ds-pair + .ds-pair { border-top: 1px solid var(--cz-line, #E7E5E4); } button.ds-pair { cursor: pointer; } button.ds-pair:hover, button.ds-pair:active { background: var(--cz-pressed, rgba(28,25,23,0.08)); } button.ds-pair:focus-visible { outline: 2px solid var(--cz-text, #1C1917); outline-offset: 2px; } .ds-pair-claim { flex: 1; display: flex; flex-direction: column; gap: 2px; } .ds-pair-claim strong { font-size: 16px; line-height: 22px; font-weight: 800; } .ds-pair-claim small { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--cz-text-muted, #6A625D); } .ds-unknown strong { color: var(--cz-text-muted, #6A625D); } .ds-pair-proof { max-width: 50%; display: flex; align-items: center; gap: 4px; text-align: right; font-size: 12px; line-height: 16px; letter-spacing: 0.1px; font-weight: 500; } .ds-pair-proof svg, .ds-pair-proof i { width: 18px; flex: 0 0 18px; color: var(--cz-text-muted, #6A625D); } .ds-ok { color: var(--cz-proof, #1F7A4D); font-weight: 800; } .ds-warn { color: var(--cz-warning, #A15C07); } .ds-none { color: var(--cz-text-muted, #6A625D); }"
+    },
+    {
+      "name": "Photo Plates",
+      "kind": "custom",
+      "refersTo": "photo-plate",
+      "description": "Equal-width fixed 4:5 plates for user photos so visits compare side by side.",
+      "html": "<div class=\"ds-plates\"><span></span><span></span><span></span><span></span></div>",
+      "css": ".ds-plates { display: flex; gap: 8px; max-width: 380px; } .ds-plates span { flex: 1; aspect-ratio: 4 / 5; border-radius: 12px; background: var(--cz-photo-placeholder, #D6D3D1); }"
+    },
+    {
+      "name": "Top App Bar",
+      "kind": "nav",
+      "refersTo": "icon-button",
+      "description": "Untitled, unfilled bar: back on the left, save and share on the right; OS-specific glyphs.",
+      "html": "<nav class=\"ds-appbar\"><button aria-label=\"Volver\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m12 19-7-7 7-7\"/><path d=\"M19 12H5\"/></svg></button><span><button aria-label=\"Agregar a quiero ir\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z\"/></svg></button><button aria-label=\"Compartir\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"18\" cy=\"5\" r=\"3\"/><circle cx=\"6\" cy=\"12\" r=\"3\"/><circle cx=\"18\" cy=\"19\" r=\"3\"/><path d=\"m8.6 13.5 6.8 4\"/><path d=\"m15.4 6.5-6.8 4\"/></svg></button></span></nav>",
+      "css": ".ds-appbar { display: flex; justify-content: space-between; padding: 0 4px; max-width: 400px; background: var(--cz-background, #FAFAF9); } .ds-appbar span { display: flex; } .ds-appbar button { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: none; border-radius: 999px; background: transparent; color: var(--cz-text, #1C1917); cursor: pointer; } .ds-appbar button:hover, .ds-appbar button:active { background: var(--cz-pressed, rgba(28,25,23,0.08)); } .ds-appbar button:focus-visible { outline: 2px solid var(--cz-text, #1C1917); outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Dicho y probado",
+    "overview": "crumbz is a ledger of evidence dressed as a quiet stone page. Every claim the screen makes (a score, a price range, a generator, a payment method) sits beside the count of real visits that back it, and the only colour on the page is the colour of that proof. Everything else is a fine warm-neutral scale: stone paper, near-black ink, hairline 1px rules. The world rejects the category's default kit of star ratings, chips and carousels; trust is shown by arithmetic, not decoration.\n\nDensity is calm and list-like. A screen reads top to bottom as a column of facts separated by hairlines, with one tonal panel reserved for the score and a row of fixed 4:5 photo plates so visits compare side by side. Type does the hierarchy with only two weights of Manrope, 800 for what is asserted and counted, 500 for everything that describes it. Numbers are always tabular so proof counts line up in a column.\n\nThe same identity ships on Android and iPhone. Structure follows Material 3 and the brand lives in the theming. The OS supplies its own back and share glyphs, and iOS keeps its system guarantees (safe area, edge-swipe back, Reduce Motion, 44pt targets, covered by the 48 target). Light and dark are both first-class and follow the system appearance.",
+    "keyCharacteristics": [
+      "One accent, green, spent only on proof counts, confirmations and the WhatsApp action.",
+      "Claim on the left, proof on the right, in tabular figures, on every fact.",
+      "Two weights (500 / 800), one family (Manrope).",
+      "Flat surfaces, 1px lines, no shadows, no cards.",
+      "Fixed 4:5 photo plates for user photos.",
+      "48px minimum touch target everywhere."
+    ],
+    "rules": [
+      { "name": "The Proof Is the Only Colour Rule", "body": "Green appears only on proof counts, confirmations and the WhatsApp action. If something is not evidence or that action, it stays stone. That includes active states, links and decoration.", "section": "colors" },
+      { "name": "The Amber Means Unverified Rule", "body": "`warning` is not a general alert colour. It marks a claim that only the place itself has made.", "section": "colors" },
+      { "name": "The Two Weights Rule", "body": "800 for what is asserted or counted: the name, the score, claims, proof counts. 500 for meta, the rank line and buttons. No third weight.", "section": "typography" },
+      { "name": "The Tabular Figures Rule", "body": "Any text that carries a number (score, prices, distances, counts, rank) uses tabular figures so values align in columns.", "section": "typography" },
+      { "name": "The Reserved Slot Rule", "body": "Every proof pair keeps its chevron slot, even when it cannot expand, so the proof column never jitters.", "section": "layout" },
+      { "name": "The Stack Under Rule", "body": "Above font scale 1.15 the proof goes under the claim; claims and proof are never truncated to keep them side by side.", "section": "layout" },
+      { "name": "The Hairline Not Shadow Rule", "body": "If two regions need separating, use a 1px rule or a tonal step. Never a shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do attach a proof to every claim about a place, worded by basis (promedio / confirmado / reportado) with the visit count in tabular figures.",
+      "Do keep green for proof counts, confirmations and the WhatsApp button only.",
+      "Do use amber only for \"solo lo dice el lugar\".",
+      "Do use 800 for the name, the score, claims and proof counts, and 500 for meta, the rank line and buttons.",
+      "Do separate list rows with 1px `line` rules and keep surfaces flat.",
+      "Do hold user photos on fixed 4:5 plates.",
+      "Do reserve the chevron slot on every proof pair and stack proof under the claim above font scale 1.15.",
+      "Do keep every touch target at 48px or more and give icon-only buttons an accessibility label.",
+      "Do use the OS back and share glyphs (iOS ChevronLeft/Share, Android ArrowLeft/Share2)."
+    ],
+    "donts": [
+      "Don't add shadows; depth is tonal steps and hairlines.",
+      "Don't wrap facts in cards or chips; the score panel is the one tonal panel.",
+      "Don't introduce a second accent colour, or use green for active states, links or decoration.",
+      "Don't use star ratings or carousels to express quality; show the score with its count and distribution.",
+      "Don't add a third font weight or a second family.",
+      "Don't crop user photos to ratios other than 4:5."
+    ]
+  }
+}

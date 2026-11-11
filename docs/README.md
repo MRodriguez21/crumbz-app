@@ -12,4 +12,6 @@ Guías para trabajar en el proyecto. Las reglas de negocio, el alcance del MVP y
 | [Decisiones técnicas](decisions.md)         | Registro de decisiones y su motivo                              |
 | [Solución de problemas](troubleshooting.md) | Errores conocidos y cómo resolverlos                            |
 
+Diseño: el contexto de producto está en [`PRODUCT.md`](../PRODUCT.md) y el sistema visual (colores, tipografía, componentes y sus reglas) en [`DESIGN.md`](../DESIGN.md). Los tokens viven en `packages/ui`.
+
 Mantén estas guías al día cuando cambie algo que describen. Si una guía contradice a `CLAUDE.md`, manda `CLAUDE.md` y hay que corregir la guía.

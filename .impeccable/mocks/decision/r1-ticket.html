@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es-VE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Billetera de pasajes — perfil del lugar</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;700&family=Archivo:wght@500..800&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: #1D2B6B; --red: #D7262E; --white: #FFFFFF; --carbon: #5B3A8C; --stock: #F1EEE6; --line: #B9BFD6; --ink-2: #4F5677; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 390px; height: 844px; overflow: hidden; }
+  body { font-family: 'Archivo', sans-serif; background: var(--stock); color: var(--navy); font-variant-numeric: tabular-nums; }
+  .status { height: 44px; background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; font-size: 13px; }
+  .appbar { height: 56px; background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 4px; color: #fff; }
+  .icon { width: 48px; height: 48px; display: grid; place-items: center; }
+  .icon svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 2; }
+  .photo { height: 150px; background: #B1602D; margin: 16px 16px 0; }
+  .coupon { margin: 0 16px; background: var(--white); border: 1px solid var(--line); position: relative; }
+  .head { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--line); font-family: 'Archivo Narrow', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+  .head span:last-child { color: var(--red); }
+  .title { padding: 12px 12px 4px; }
+  h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.01em; }
+  .meta { font-size: 14px; color: var(--ink-2); margin-top: 2px; }
+  .boxes { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 1px solid var(--line); margin-top: 12px; }
+  .box { padding: 8px 10px 10px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .box:nth-child(3n) { border-right: 0; }
+  .box.w2 { grid-column: span 2; }
+  .box.w3 { grid-column: span 3; border-right: 0; }
+  .box small { display: block; font-family: 'Archivo Narrow', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+  .box b { display: block; font-size: 17px; font-weight: 800; margin-top: 4px; }
+  .box b.carbon { color: var(--carbon); font-size: 30px; line-height: 1; }
+  .stamp { position: absolute; right: 18px; top: 52px; transform: rotate(-9deg); border: 3px solid var(--red); color: var(--red); padding: 4px 10px; font-family: 'Archivo Narrow', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: .08em; text-align: center; line-height: 1.1; opacity: .9; }
+  .stamp small { display: block; font-size: 11px; }
+  .perf { height: 0; border-top: 2px dashed var(--line); margin: 0 16px; }
+  .stub { margin: 0 16px; background: var(--white); border: 1px solid var(--line); border-top: 0; padding: 10px 12px; display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; }
+  .bar { position: absolute; left: 0; right: 0; top: 760px; height: 84px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 16px 24px; background: var(--stock); border-top: 1px solid var(--line); }
+  .btn { height: 48px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; }
+  .btn.wa { background: #12A46B; color: #fff; }
+  .btn.post { background: var(--red); color: #fff; }
+</style>
+</head>
+<body>
+  <div class="status"><span>9:41</span><span>4G · 62%</span></div>
+  <div class="appbar">
+    <div class="icon" aria-label="Volver"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></div>
+    <div class="icon" aria-label="Compartir"><svg viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 14v6h14v-6"/></svg></div>
+  </div>
+  <div class="photo" aria-label="Foto de @mariangel.come"></div>
+  <article class="coupon">
+    <div class="head"><span>Cupón de lugar · LMR-0317</span><span>#3 Hamburguesas</span></div>
+    <div class="stamp">VISITADO<small>12 OCT 2026</small></div>
+    <div class="title"><h1>Smash Club</h1><div class="meta">Hamburguesas · Las Mercedes · 1,2 km</div></div>
+    <div class="boxes">
+      <div class="box"><small>Puntaje</small><b class="carbon">8,6</b></div>
+      <div class="box"><small>Personas</small><b class="carbon">47</b></div>
+      <div class="box"><small>Por persona</small><b>$12–18</b></div>
+      <div class="box w2"><small>Pagos</small><b>Pago Móvil · Zelle · $</b></div>
+      <div class="box"><small>Planta</small><b>Sí</b></div>
+      <div class="box w3"><small>Delivery a</small><b>Las Mercedes · Chacao · Altamira</b></div>
+    </div>
+  </article>
+  <div class="perf"></div>
+  <div class="stub"><span>Estacionamiento vigilado</span><span>Abre hasta 11:00 p. m.</span></div>
+  <nav class="bar"><div class="btn wa">WhatsApp</div><div class="btn post">Sellar mi visita</div></nav>
+</body>
+</html>

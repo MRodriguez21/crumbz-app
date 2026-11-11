@@ -47,3 +47,6 @@ Thumbs.db
 # Impeccable (per-machine state)
 .impeccable/*.local.json
 .impeccable/*.cache.json
+.impeccable/review/
+.impeccable/mocks/ref/
+*.stackdump

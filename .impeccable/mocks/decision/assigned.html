@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es-VE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Modernismo caraqueño — perfil del lugar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ultra: #2335C8; --ultra-deep: #18248F; --sun: #FFC21A; --green: #12A46B;
+    --ground: #F4F5F7; --ink: #12141C; --ink-2: #474B5C; --line: #D9DCE4; --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 390px; height: 844px; overflow: hidden; }
+  body { font-family: 'Archivo', sans-serif; background: var(--ground); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .status { height: 44px; background: var(--ultra); color: #E6E9FF; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+  .head { background: var(--ultra); color: var(--white); padding: 0 16px 20px; position: relative; }
+  .appbar { height: 56px; display: flex; align-items: center; justify-content: space-between; }
+  .appbar .group { display: flex; gap: 4px; }
+  .icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 24px; }
+  .icon svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 2; }
+  .hero { display: grid; grid-template-columns: 1fr 132px; gap: 12px; align-items: end; }
+  .photo { height: 168px; background: #C8692E; border-radius: 0 0 0 0; position: relative; overflow: hidden; }
+  .photo::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(255,255,255,.0) 0 22px, rgba(255,255,255,.10) 22px 24px); }
+  .photo span { position: absolute; left: 10px; bottom: 8px; font-size: 11px; color: #FFE7D6; }
+  .emblem { background: var(--ultra-deep); padding: 12px; }
+  .modules { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-bottom: 10px; }
+  .m { aspect-ratio: 1; background: var(--sun); border-radius: 50% 50% 0 50%; }
+  .m.part { background: linear-gradient(90deg, var(--sun) 60%, rgba(255,194,26,.25) 60%); }
+  .m.off { background: rgba(255,194,26,.25); }
+  .score { font-size: 44px; font-weight: 900; font-stretch: 125%; line-height: 1; letter-spacing: -0.02em; }
+  .raters { font-size: 12px; color: #C9CEFF; margin-top: 4px; }
+  h1 { font-size: 34px; font-weight: 850; font-stretch: 112%; letter-spacing: -0.02em; line-height: 1.05; margin-top: 16px; }
+  .meta { margin-top: 6px; font-size: 15px; color: #DDE1FF; }
+  .rank { margin-top: 12px; display: inline-flex; gap: 8px; align-items: center; background: var(--sun); color: var(--ink); font-weight: 800; font-size: 14px; padding: 6px 10px; }
+  .facts { padding: 20px 16px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .fact { background: var(--white); padding: 12px; min-height: 76px; display: flex; flex-direction: column; justify-content: space-between; }
+  .fact.wide { grid-column: span 2; flex-direction: row; align-items: center; }
+  .label { font-size: 12px; color: var(--ink-2); font-weight: 600; }
+  .value { font-size: 20px; font-weight: 800; font-stretch: 108%; text-align: right; }
+  .state { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; }
+  .dot { width: 14px; height: 14px; background: var(--green); }
+  .dot.outline { background: transparent; border: 2px solid var(--ink-2); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: 13px; font-weight: 700; padding: 5px 8px; border: 2px solid var(--ultra); color: var(--ultra); }
+  .zones { font-size: 14px; font-weight: 600; }
+  .more { margin-left: auto; color: var(--ultra); font-weight: 800; font-size: 14px; }
+  h2 { font-size: 20px; font-weight: 850; font-stretch: 110%; padding: 24px 16px 10px; }
+  .dish { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-top: 1px solid var(--line); }
+  .dish .thumb { width: 44px; height: 44px; background: #B85A24; }
+  .dish .name { font-size: 16px; font-weight: 700; flex: 1; }
+  .dish .count { font-size: 14px; font-weight: 800; color: var(--green); }
+  .bar { position: absolute; left: 0; right: 0; top: 760px; height: 84px; background: var(--white); border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 16px 24px; }
+  .btn { display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 800; font-size: 16px; height: 48px; }
+  .btn.wa { background: var(--green); color: #fff; }
+  .btn.post { background: var(--ink); color: #fff; }
+</style>
+</head>
+<body>
+  <div class="status"><span>9:41</span><span>4G · 62%</span></div>
+  <header class="head">
+    <div class="appbar">
+      <div class="icon" aria-label="Volver"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></div>
+      <div class="group">
+        <div class="icon" aria-label="Quiero ir"><svg viewBox="0 0 24 24"><path d="M6 4h12v16l-6-4-6 4z"/></svg></div>
+        <div class="icon" aria-label="Compartir"><svg viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 14v6h14v-6"/></svg></div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="photo"><span>Foto de @mariangel.come · hace 2 días</span></div>
+      <div class="emblem" aria-label="Puntaje 8,6 de 10, de 47 personas">
+        <div class="modules">
+          <i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i>
+          <i class="m"></i><i class="m"></i><i class="m"></i><i class="m part"></i><i class="m off"></i>
+        </div>
+        <div class="score">8,6</div>
+        <div class="raters">de 47 personas</div>
+      </div>
+    </div>
+    <h1>Smash Club</h1>
+    <div class="meta">Hamburguesas · Las Mercedes · 1,2 km</div>
+    <div class="rank">#3 Hamburguesas · Caracas</div>
+  </header>
+  <section class="facts">
+    <div class="fact"><span class="label">Gasto por persona</span><span class="value">$12 – $18</span></div>
+    <div class="fact"><span class="label">Planta eléctrica</span><span class="state"><i class="dot"></i>Tiene planta</span></div>
+    <div class="fact wide"><div><span class="label">Pagos</span><div class="chips" style="margin-top:6px"><span class="chip">Pago Móvil</span><span class="chip">Zelle</span><span class="chip">Efectivo $</span><span class="chip">Punto</span></div></div></div>
+    <div class="fact"><span class="label">Estacionamiento</span><span class="state"><i class="dot"></i>Vigilado</span></div>
+    <div class="fact"><span class="label">Delivery</span><span class="zones">Las Mercedes, Chacao y 1 más</span></div>
+  </section>
+  <h2>Lo más recomendado</h2>
+  <div class="dish"><i class="thumb"></i><span class="name">Smash doble con queso</span><span class="count">31 lo recomiendan</span></div>
+  <div class="dish"><i class="thumb" style="background:#D9A441"></i><span class="name">Papas con trufa</span><span class="count">18 lo recomiendan</span></div>
+  <nav class="bar">
+    <div class="btn wa">WhatsApp</div>
+    <div class="btn post">Publicar visita</div>
+  </nav>
+</body>
+</html>

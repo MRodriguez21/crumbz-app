@@ -1,11 +1,11 @@
 import { APP_NAME } from '@crumbz/shared';
 
-// Placeholder until the design system (phase 0.5) and public pages (phase 8) land.
+// Placeholder until the public pages (phase 8) land.
 export default function Home() {
   return (
-    <main className="flex flex-1 flex-col items-center justify-center gap-2 p-4 text-center">
-      <h1 className="text-4xl font-bold">{APP_NAME}</h1>
-      <p>Muy pronto: descubre dónde comer en Caracas.</p>
+    <main className="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center gap-3 px-4 py-12">
+      <h1 className="text-[32px] leading-9 font-extrabold tracking-[-0.03em]">{APP_NAME}</h1>
+      <p className="text-text-muted">Dónde comer en Caracas, dicho por gente que fue.</p>
     </main>
   );
 }

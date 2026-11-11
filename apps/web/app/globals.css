@@ -1,25 +1,37 @@
 @import 'tailwindcss';
 
-/* Placeholder tokens — replaced by the shared design system in phase 0.5. */
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* Token values come from @crumbz/ui via tokensToCss() in app/layout.tsx. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--cz-background);
+  --color-surface: var(--cz-surface);
+  --color-surface-raised: var(--cz-surface-raised);
+  --color-line: var(--cz-line);
+  --color-text: var(--cz-text);
+  --color-text-muted: var(--cz-text-muted);
+  --color-inverse: var(--cz-inverse);
+  --color-text-on-inverse: var(--cz-text-on-inverse);
+  --color-proof: var(--cz-proof);
+  --color-on-proof: var(--cz-on-proof);
+  --color-proof-subtle: var(--cz-proof-subtle);
+  --color-warning: var(--cz-warning);
+  --color-danger: var(--cz-danger);
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: system-ui, sans-serif;
+  background: var(--cz-background);
+  color: var(--cz-text);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-weight: 500;
+}
+
+/* Green is reserved for proof and WhatsApp (DESIGN.md), so browser chrome stays neutral. */
+::selection {
+  background: var(--cz-line);
+  color: var(--cz-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--cz-text);
+  outline-offset: 2px;
 }

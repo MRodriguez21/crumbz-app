@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es-VE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Peso del puntaje — perfil del lugar</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap" rel="stylesheet">
+<style>
+  :root { --paper: #F7F6F2; --ink: #111111; --ink-2: #5E5B55; --acc: #FF4F1F; --line: #D9D6CF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 390px; height: 844px; overflow: hidden; }
+  body { font-family: 'Roboto Flex', sans-serif; background: var(--paper); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .status { height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; font-size: 13px; }
+  .appbar { height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 4px; }
+  .icon { width: 48px; height: 48px; display: grid; place-items: center; }
+  .icon svg { width: 24px; height: 24px; stroke: var(--ink); fill: none; stroke-width: 2; }
+  .score { padding: 0 16px; display: flex; align-items: flex-end; gap: 12px; }
+  .score b { font-size: 132px; line-height: .86; font-weight: 860; font-stretch: 120%; letter-spacing: -0.04em; font-variation-settings: "opsz" 144; }
+  .score div { padding-bottom: 12px; font-size: 14px; color: var(--ink-2); }
+  .score div strong { display: block; color: var(--acc); font-weight: 800; font-size: 15px; }
+  .ramp { display: flex; gap: 10px; padding: 10px 16px 0; font-size: 22px; color: var(--ink-2); }
+  .ramp span:nth-child(1) { font-weight: 150; } .ramp span:nth-child(2) { font-weight: 300; } .ramp span:nth-child(3) { font-weight: 450; } .ramp span:nth-child(4) { font-weight: 600; } .ramp span:nth-child(5) { font-weight: 750; } .ramp span:nth-child(6) { font-weight: 900; color: var(--acc); }
+  h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; padding: 18px 16px 0; }
+  .meta { padding: 4px 16px 0; font-size: 15px; color: var(--ink-2); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px 16px 0; }
+  .tag { font-size: 13px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; }
+  .tag b { font-weight: 800; }
+  h2 { font-size: 18px; font-weight: 700; padding: 20px 16px 6px; }
+  .dish { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 16px; border-top: 1px solid var(--line); }
+  .dish span:first-child { font-size: 22px; }
+  .dish span:last-child { font-size: 13px; color: var(--ink-2); }
+  .bar { position: absolute; left: 0; right: 0; top: 760px; height: 84px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 16px 24px; background: var(--paper); border-top: 1px solid var(--line); }
+  .btn { height: 48px; border-radius: 24px; display: flex; align-items: center; justify-content: center; font-weight: 750; font-size: 16px; }
+  .btn.wa { background: var(--ink); color: #fff; }
+  .btn.post { background: var(--acc); color: #fff; }
+</style>
+</head>
+<body>
+  <div class="status"><span>9:41</span><span>4G · 62%</span></div>
+  <div class="appbar">
+    <div class="icon" aria-label="Volver"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></div>
+    <div class="icon" aria-label="Compartir"><svg viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 14v6h14v-6"/></svg></div>
+  </div>
+  <div class="score" aria-label="Puntaje 8,6 de 47 personas"><b>8,6</b><div><strong>47 personas</strong>#3 Hamburguesas · Caracas</div></div>
+  <div class="ramp" aria-hidden="true"><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+  <h1>Smash Club</h1>
+  <div class="meta">Hamburguesas · Las Mercedes · 1,2 km</div>
+  <div class="tags"><span class="tag"><b>$12–18</b> por persona</span><span class="tag">Tiene planta</span><span class="tag">Pago Móvil · Zelle · $</span><span class="tag">Estacionamiento</span><span class="tag">Delivery a 3 zonas</span></div>
+  <h2>Lo más recomendado</h2>
+  <div class="dish"><span style="font-weight:900">Smash doble con queso</span><span>31 personas</span></div>
+  <div class="dish"><span style="font-weight:600">Papas con trufa</span><span>18 personas</span></div>
+  <div class="dish"><span style="font-weight:350">Malteada de Toddy</span><span>7 personas</span></div>
+  <nav class="bar"><div class="btn wa">WhatsApp</div><div class="btn post">Publicar visita</div></nav>
+</body>
+</html>

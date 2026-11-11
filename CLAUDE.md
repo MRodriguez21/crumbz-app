@@ -431,6 +431,7 @@ La búsqueda en Google Places debe hacerse desde una Edge Function o ruta de ser
 
 Reglas:
 
+- Fuentes de diseño vigentes: `PRODUCT.md` (contexto), `DESIGN.md` (sistema visual «Dicho y probado») y `packages/ui/src/tokens.ts` (tokens). El verde es solo para prueba y WhatsApp.
 - Si las skills se contradicen, manda este documento (rendimiento en gama baja, accesibilidad ≥ 44 px, español de Venezuela), luego `PRODUCT.md`/`DESIGN.md` y por último las recomendaciones genéricas de las skills.
 - Nada de dependencias pesadas de animación o UI por sugerencia de una skill sin evaluar el impacto en el tamaño de la app.
 
