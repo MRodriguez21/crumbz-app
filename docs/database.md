@@ -45,6 +45,8 @@ Si `db:push` se queda colgado en "Initialising login role…", ver [Solución de
 | `20261025184418_schema_mvp`               | Esquema completo del MVP (tablas, índices, triggers, RLS, rankings, datos base)           |
 | `20261025184425_column_update_privileges` | Corrige la protección de contadores (ver abajo)                                           |
 | `20261025184454_harden_functions`         | `search_path` fijo en funciones; las funciones de trigger dejan de ser invocables por RPC |
+| `20261111024542_rls_performance`          | Políticas RLS con `(select auth.uid())`, sin solapamientos, e índices en claves foráneas  |
+| `20261111024550_avatars_storage`          | Bucket público `avatars` y políticas: cada usuario escribe solo en su carpeta             |
 
 ## Seguridad (RLS)
 
@@ -63,9 +65,9 @@ grant update (rating, body, mode, spend_per_person_usd, visited_on) on table pos
 
 Si agregas una columna que el usuario deba poder editar en `profiles` o `posts`, agrégala al `grant` en una migración nueva. Por defecto, las columnas nuevas **no** son editables desde el cliente.
 
-### Pendientes conocidos (advisors)
+### Avisos de los advisors
 
-- **Rendimiento:** 24 políticas usan `auth.uid()` sin `select`; varias políticas permisivas se solapan; 17 claves foráneas sin índice. Corregir en una migración antes de tener tráfico real.
+- **Rendimiento:** resuelto en `…_rls_performance`. Solo queda «índice sin usar» (informativo; normal mientras no hay datos).
 - **Aceptados a propósito:** `is_admin()` ejecutable por `anon`/`authenticated` (lo necesitan las políticas) y `place_rankings` expuesta en la API (son datos públicos agregados).
 
 ## Datos de desarrollo

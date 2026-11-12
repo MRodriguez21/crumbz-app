@@ -49,6 +49,8 @@ export type ColorRole =
   | 'line'
   /** Overlay for pressed/ripple feedback on tappable rows and icons. */
   | 'pressed'
+  /** Dimmed backdrop behind dialogs and sheets. */
+  | 'scrim'
   | 'text'
   | 'textMuted'
   | 'textOnInverse'
@@ -70,6 +72,7 @@ export const colors: Record<'light' | 'dark', ColorScheme> = {
     surfaceRaised: stone[0],
     line: stone[200],
     pressed: 'rgba(28, 25, 23, 0.08)',
+    scrim: 'rgba(28, 25, 23, 0.48)',
     text: stone[900],
     textMuted: stone[600],
     textOnInverse: stone[50],
@@ -87,6 +90,7 @@ export const colors: Record<'light' | 'dark', ColorScheme> = {
     surfaceRaised: stone[800],
     line: '#2E2A27',
     pressed: 'rgba(245, 245, 244, 0.10)',
+    scrim: 'rgba(0, 0, 0, 0.64)',
     text: stone[100],
     textMuted: stone[400],
     textOnInverse: stone[900],

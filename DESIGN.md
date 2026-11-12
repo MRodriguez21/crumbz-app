@@ -7,6 +7,7 @@ colors:
   surface-raised: '#FFFFFF'
   line: '#E7E5E4'
   pressed: 'rgba(28, 25, 23, 0.08)'
+  scrim: 'rgba(28, 25, 23, 0.48)'
   text: '#1C1917'
   text-muted: '#6A625D'
   inverse: '#1C1917'
@@ -22,6 +23,7 @@ colors:
   surface-raised-dark: '#292524'
   line-dark: '#2E2A27'
   pressed-dark: 'rgba(245, 245, 244, 0.10)'
+  scrim-dark: 'rgba(0, 0, 0, 0.64)'
   text-dark: '#F5F5F4'
   text-muted-dark: '#A8A29E'
   inverse-dark: '#F5F5F4'
@@ -177,13 +179,14 @@ A warm stone neutral scale carrying all structure, with a single green that mean
 
 - **Stone Paper** (`background`): the page in light mode; Charred Stone (`background-dark`) in dark.
 - **Warm Ash** (`surface`): the single tonal panel (the score block). Not a card fill for lists.
-- **Bare White** (`surface-raised`): reserved raised surface; not used on the anchor screen.
+- **Bare White** (`surface-raised`): raised surfaces: text inputs and dialogs. Not used on the anchor screen.
 - **Hairline Stone** (`line`): 1px dividers between facts, top rule of the action bar, distribution-bar tracks.
 - **Ink Stone** (`text`): primary text, the score digits, distribution fills, outline-button stroke.
 - **Muted Stone** (`text-muted`): meta lines, details under claims, distribution labels, "sin datos aún". Contrast-checked at 4.5:1 or more on background and surface in both schemes.
 - **Inverse Ink** (`inverse` / `text-on-inverse`): the neutral filled button.
 - **Plate Stone** (`photo-placeholder`): the fill of a photo plate before its image loads.
 - **Press Veil** (`pressed`): translucent overlay for pressed and ripple feedback on tappable rows and icon buttons.
+- **Scrim** (`scrim`): dimmed backdrop behind in-app dialogs (`ConfirmDialog`). Dialogs are drawn by the app, not the OS, so confirmations keep crumbz ink instead of the platform accent.
 
 ### Status
 

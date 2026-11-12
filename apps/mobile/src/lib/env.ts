@@ -6,11 +6,16 @@ const env = z
     EXPO_PUBLIC_SUPABASE_URL: z.url(),
     EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY: z.string().min(1),
     EXPO_PUBLIC_POSTHOG_KEY: z.string().optional(),
+    // Google OAuth client IDs (public). Optional until Google Cloud is configured.
+    EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID: z.string().optional(),
+    EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID: z.string().optional(),
   })
   .parse({
     EXPO_PUBLIC_SUPABASE_URL: process.env.EXPO_PUBLIC_SUPABASE_URL,
     EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY: process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
     EXPO_PUBLIC_POSTHOG_KEY: process.env.EXPO_PUBLIC_POSTHOG_KEY || undefined,
+    EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID || undefined,
+    EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID || undefined,
   });
 
 export default env;

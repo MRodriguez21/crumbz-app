@@ -1,5 +1,6 @@
 import type { LucideIcon } from 'lucide-react-native';
-import { Pressable, StyleSheet, View } from 'react-native';
+import type { ReactNode } from 'react';
+import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
 
 import { Text } from '@/components/text';
 import { radius, space, touchTarget, useColors } from '@/theme';
@@ -11,19 +12,33 @@ type ButtonProps = {
   onPress: () => void;
   variant?: Variant;
   icon?: LucideIcon;
+  /** Custom leading mark (e.g. a brand logo) when a Lucide icon doesn't apply. */
+  iconElement?: ReactNode;
   disabled?: boolean;
+  /** Shows a spinner and blocks repeat presses while an action runs. */
+  loading?: boolean;
 };
 
-export function Button({ label, onPress, variant = 'inverse', icon: Icon, disabled }: ButtonProps) {
+export function Button({
+  label,
+  onPress,
+  variant = 'inverse',
+  icon: Icon,
+  iconElement,
+  disabled,
+  loading,
+}: ButtonProps) {
   const c = useColors();
   const fill = { proof: c.proof, inverse: c.inverse, outline: 'transparent' }[variant];
   const ink = { proof: c.onProof, inverse: c.textOnInverse, outline: c.text }[variant];
+  const inactive = disabled || loading;
 
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityState={{ disabled }}
-      disabled={disabled}
+      accessibilityLabel={label}
+      accessibilityState={{ disabled: inactive, busy: loading }}
+      disabled={inactive}
       onPress={onPress}
       style={({ pressed }) => [
         styles.base,
@@ -32,7 +47,13 @@ export function Button({ label, onPress, variant = 'inverse', icon: Icon, disabl
       ]}
     >
       <View style={styles.content}>
-        {Icon ? <Icon size={20} color={ink} strokeWidth={2} /> : null}
+        {loading ? (
+          <ActivityIndicator color={ink} />
+        ) : iconElement ? (
+          iconElement
+        ) : Icon ? (
+          <Icon size={20} color={ink} strokeWidth={2} />
+        ) : null}
         <Text
           variant="body"
           // Wrap instead of shrinking: never undo the user's chosen font size.

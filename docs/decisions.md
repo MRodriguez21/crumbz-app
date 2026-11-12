@@ -4,6 +4,16 @@ Registro breve de decisiones que no son obvias leyendo el código. Agrega una en
 
 ---
 
+### 2026-11-10 — Fase 1 (login y perfil)
+
+- **Login nativo con `signInWithIdToken`**: Google con `@react-native-google-signin/google-signin`, Apple con `expo-apple-authentication` (con _nonce_). Requiere _development build_ (EAS); Expo Go sigue sirviendo para pantallas sin login (`expo start --go`).
+- **Apple: código listo, sin activar** hasta tener la cuenta de Apple Developer (decisión del fundador). Solo nativo en iPhone; en Android solo Google.
+- **Guardas con `Stack.Protected`** (Expo Router SDK 58). Si no se puede cargar el perfil, pantalla de reintento: nunca se manda a onboarding por un error de red.
+- **Usuarios en minúsculas** (`usernameSchema`), únicos sin distinguir mayúsculas en la base (`citext`), con lista de reservados.
+- **Fotos de perfil** comprimidas en el dispositivo (512 px, WebP) en el bucket `avatars/{user_id}/…`.
+- **Rutas tipadas de Expo Router desactivadas**: el generador escanea mal este monorepo en Windows.
+- **Instalación de dependencias en Windows**: pnpm 11 puede fallar con `ENOENT …_tmp_…\node_modules` al reemplazar paquetes; la salida fiable es una instalación limpia (borrar `node_modules` y `pnpm install`).
+
 ### 2026-10-25 — Fase 0.5 (identidad y design system)
 
 - **Mundo visual «Dicho y probado»**, elegido por el fundador en la ronda de decisión de impeccable (mano atrevida): escala neutra cálida (stone) y **un solo acento verde reservado para la prueba** (conteos de personas reales, confirmaciones) y para WhatsApp. Nada se afirma sin prueba. Reglas completas en [`DESIGN.md`](../DESIGN.md); contexto de producto en [`PRODUCT.md`](../PRODUCT.md).
