@@ -10,6 +10,7 @@ Guías para trabajar en el proyecto. Las reglas de negocio, el alcance del MVP y
 | [Base de datos](database.md)                | Esquema, migraciones, seguridad (RLS) y tipos                   |
 | [App móvil](mobile.md)                      | Expo, Expo Go, builds de desarrollo y EAS                       |
 | [Inicio de sesión y perfil](auth.md)        | Google/Apple, guardas de rutas, perfil y su configuración       |
+| [Lugares](places.md)                        | Buscar y crear lugares, Google Places y su configuración        |
 | [Decisiones técnicas](decisions.md)         | Registro de decisiones y su motivo                              |
 | [Solución de problemas](troubleshooting.md) | Errores conocidos y cómo resolverlos                            |
 

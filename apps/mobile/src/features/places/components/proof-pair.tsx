@@ -23,6 +23,7 @@ const STACK_FONT_SCALE = 1.15;
 const proofText = (f: ProofFact) => {
   if (f.status === 'unconfirmed') return 'solo lo dice el lugar';
   if (f.status === 'unknown') return 'sin datos aún';
+  if (f.status === 'stated') return 'sin confirmar';
   const n = f.visits ?? 0;
   return {
     average: `promedio de ${n} visitas`,
@@ -31,7 +32,12 @@ const proofText = (f: ProofFact) => {
   }[f.basis ?? 'confirmed'];
 };
 
-const proofTone = { confirmed: 'proof', unconfirmed: 'warning', unknown: 'textMuted' } as const;
+const proofTone = {
+  confirmed: 'proof',
+  unconfirmed: 'warning',
+  stated: 'textMuted',
+  unknown: 'textMuted',
+} as const;
 
 /**
  * Signature move: every claim sits next to its proof. Tapping a confirmed claim unfolds

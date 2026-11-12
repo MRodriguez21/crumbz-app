@@ -8,6 +8,9 @@ const APP_ID = identity.id;
 // Reversed iOS OAuth client ID (com.googleusercontent.apps.…). Set when Google Cloud is configured.
 const GOOGLE_IOS_URL_SCHEME = process.env.GOOGLE_IOS_URL_SCHEME;
 
+const LOCATION_PERMISSION =
+  'crumbz usa tu ubicación para guardar dónde queda el lugar que estás agregando y mostrarte lugares cerca.';
+
 const config: ExpoConfig = {
   name: identity.name,
   slug: identity.name,
@@ -53,6 +56,17 @@ const config: ExpoConfig = {
       {
         photosPermission: 'crumbz usa tus fotos para tu foto de perfil y tus visitas.',
         cameraPermission: 'crumbz usa la cámara para fotografiar lo que comes.',
+      },
+    ],
+    [
+      'expo-location',
+      {
+        // Foreground only: no background location in the MVP.
+        locationWhenInUsePermission: LOCATION_PERMISSION,
+        // iOS adds these keys anyway; keep them in Spanish even though we never ask for "always".
+        locationAlwaysAndWhenInUsePermission: LOCATION_PERMISSION,
+        locationAlwaysPermission: LOCATION_PERMISSION,
+        isAndroidBackgroundLocationEnabled: false,
       },
     ],
     ...(GOOGLE_IOS_URL_SCHEME

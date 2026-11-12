@@ -268,12 +268,12 @@ crumbz/
 │   └── ui/                     # (opcional) tokens de diseño compartidos
 └── supabase/
     ├── config.toml
-    ├── migrations/
+    ├── migrations/             # <timestamp>_<nombre>.sql; historial en docs/database.md
     │   ├── 20261025184418_schema_mvp.sql
-    │   ├── 20261025184425_column_update_privileges.sql
-    │   └── 20261025184454_harden_functions.sql
+    │   └── …
     ├── functions/
-    │   └── delete-account/     # Edge Function de eliminación de cuenta
+    │   ├── places/             # búsqueda e importación desde Google Places (la clave no sale del servidor)
+    │   └── delete-account/     # Edge Function de eliminación de cuenta (fase 7)
     └── seed.sql
 ```
 

@@ -17,7 +17,7 @@ La visita (`posts`) es la unidad central. Tablas principales:
 | Seguridad | `blocks`, `reports`                                                    |
 | Rankings  | `place_rankings` (vista materializada, promedio bayesiano)             |
 
-Funciones RPC: `places_nearby(lat, lng, radius_m, max_results)` y `top_places(city_id, tag_slug, min_raters, max_results)`.
+Funciones RPC: `places_nearby(lat, lng, radius_m, max_results)`, `top_places(city_id, tag_slug, min_raters, max_results)`, `search_places(q, city_id, max_results)` y `create_place(...)` (ver [Lugares](places.md)). `import_google_place(...)` solo la ejecuta la Edge Function `places`.
 
 Detalle completo: [`CLAUDE.md` §8](../CLAUDE.md) y las migraciones.
 
@@ -47,12 +47,19 @@ Si `db:push` se queda colgado en "Initialising login role…", ver [Solución de
 | `20261025184454_harden_functions`         | `search_path` fijo en funciones; las funciones de trigger dejan de ser invocables por RPC |
 | `20261111024542_rls_performance`          | Políticas RLS con `(select auth.uid())`, sin solapamientos, e índices en claves foráneas  |
 | `20261111024550_avatars_storage`          | Bucket público `avatars` y políticas: cada usuario escribe solo en su carpeta             |
+| `20261112024349_places_functions`         | `create_place`, `import_google_place`, `search_places`, slugs y origen de la ubicación    |
+| `20261112024423_places_search_unaccent`   | Búsqueda de lugares sin acentos ni mayúsculas, con índice trigram de expresión            |
+| `20261112034237_places_harden`            | Lugares solo se crean vía funciones; validación en servidor y formato de contacto         |
 
 ## Seguridad (RLS)
 
 - **Todas** las tablas tienen RLS activado. Sin política explícita, nadie lee ni escribe.
 - Las apps usan la _publishable key_ (rol `anon` o `authenticated`). La _secret key_ salta RLS: solo en Edge Functions.
 - Usa `(select auth.uid())` en vez de `auth.uid()` en políticas nuevas (se evalúa una vez por consulta, no por fila).
+
+### Crear lugares
+
+Ni `anon` ni `authenticated` pueden insertar en `places`, `place_tags` ni `place_service_areas`: solo `create_place()` (usuarios) e `import_google_place()` (Edge Function). Así nadie puede atar un `google_place_id` ajeno a un lugar falso ni saltarse las reglas.
 
 ### Contadores y columnas protegidas
 
@@ -68,7 +75,8 @@ Si agregas una columna que el usuario deba poder editar en `profiles` o `posts`,
 ### Avisos de los advisors
 
 - **Rendimiento:** resuelto en `…_rls_performance`. Solo queda «índice sin usar» (informativo; normal mientras no hay datos).
-- **Aceptados a propósito:** `is_admin()` ejecutable por `anon`/`authenticated` (lo necesitan las políticas) y `place_rankings` expuesta en la API (son datos públicos agregados).
+- **Aceptados a propósito:** `is_admin()` ejecutable por `anon`/`authenticated` (lo necesitan las políticas), `create_place()` ejecutable por `authenticated` (es _security definer_ a propósito: nadie inserta en `places` directamente y la función valida todo) y `place_rankings` expuesta en la API (son datos públicos agregados).
+- **«Leaked password protection»:** no aplica; no usamos contraseñas (solo Google y Apple).
 
 ## Datos de desarrollo
 

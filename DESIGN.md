@@ -285,8 +285,13 @@ The claim → proof pair is the system's signature move. Claim on the left in Bo
 
 - **Confirmed:** Label Strong in green. Tapping unfolds the evidence in place (32px 4:5 thumbnails, author · when, optional value), with an expanded state for assistive technology.
 - **Unconfirmed:** plain Label in amber: "solo lo dice el lugar". Not tappable.
+- **Stated:** what the person who added the place said (how it serves, delivery zones). The claim stays in ink and the proof reads "sin confirmar" in muted Label: not amber (that means the place itself says so) and not green. Not tappable.
 - **Unknown:** the claim drops to muted and the proof reads "sin datos aún" in muted Label. Not tappable.
   Rows are separated by 1px rules and use the `pressed` veil or ripple as touch feedback.
+
+### Choice Rows (forms)
+
+Single and multiple choice in forms are full-width rows, never chips or boxed groups: Body label (optional muted Label description), a 20px radio or checkbox in ink on the right, a 1px `line` rule above every row and below the last, at least 48px tall. Disabled rows drop to 40% and say why in their description. Errors show only as the danger message under the group, not as a red outline. Form screens open with the title as Headline in the content; the top app bar keeps only the back button.
 
 ### Photo Plates
 

@@ -455,6 +455,8 @@ export type Database = {
           instagram: string | null
           kind: Database["public"]["Enums"]["place_kind"]
           location: unknown
+          location_fetched_at: string | null
+          location_source: Database["public"]["Enums"]["location_source"] | null
           name: string
           payment_methods: Database["public"]["Enums"]["payment_method"][]
           posts_count: number
@@ -480,6 +482,10 @@ export type Database = {
           instagram?: string | null
           kind?: Database["public"]["Enums"]["place_kind"]
           location?: unknown
+          location_fetched_at?: string | null
+          location_source?:
+            | Database["public"]["Enums"]["location_source"]
+            | null
           name: string
           payment_methods?: Database["public"]["Enums"]["payment_method"][]
           posts_count?: number
@@ -505,6 +511,10 @@ export type Database = {
           instagram?: string | null
           kind?: Database["public"]["Enums"]["place_kind"]
           location?: unknown
+          location_fetched_at?: string | null
+          location_source?:
+            | Database["public"]["Enums"]["location_source"]
+            | null
           name?: string
           payment_methods?: Database["public"]["Enums"]["payment_method"][]
           posts_count?: number
@@ -903,7 +913,54 @@ export type Database = {
       }
     }
     Functions: {
+      create_place: {
+        Args: {
+          p_address?: string
+          p_area_id?: number
+          p_city_id: number
+          p_has_generator?: boolean
+          p_has_parking?: boolean
+          p_instagram?: string
+          p_kind: Database["public"]["Enums"]["place_kind"]
+          p_lat?: number
+          p_lng?: number
+          p_name: string
+          p_payment_methods?: Database["public"]["Enums"]["payment_method"][]
+          p_service_area_ids?: number[]
+          p_service_modes: Database["public"]["Enums"]["service_mode"][]
+          p_tag_ids?: number[]
+          p_whatsapp?: string
+        }
+        Returns: {
+          id: string
+          slug: string
+        }[]
+      }
+      immutable_unaccent: { Args: { p: string }; Returns: string }
+      import_google_place: {
+        Args: {
+          p_address: string
+          p_city_id: number
+          p_google_place_id: string
+          p_kind?: Database["public"]["Enums"]["place_kind"]
+          p_lat: number
+          p_lng: number
+          p_name: string
+          p_user_id: string
+        }
+        Returns: {
+          created: boolean
+          id: string
+          slug: string
+        }[]
+      }
       is_admin: { Args: never; Returns: boolean }
+      is_in_venezuela: {
+        Args: { p_lat: number; p_lng: number }
+        Returns: boolean
+      }
+      next_place_slug: { Args: { p_name: string }; Returns: string }
+      place_slug_base: { Args: { p_name: string }; Returns: string }
       places_nearby: {
         Args: {
           lat: number
@@ -917,6 +974,20 @@ export type Database = {
           kind: Database["public"]["Enums"]["place_kind"]
           name: string
           score: number
+          slug: string
+        }[]
+      }
+      search_places: {
+        Args: { max_results?: number; p_city_id: number; q: string }
+        Returns: {
+          address: string
+          area_name: string
+          google_place_id: string
+          id: string
+          kind: Database["public"]["Enums"]["place_kind"]
+          match_score: number
+          name: string
+          service_modes: Database["public"]["Enums"]["service_mode"][]
           slug: string
         }[]
       }
@@ -939,6 +1010,7 @@ export type Database = {
     }
     Enums: {
       list_kind: "places" | "dishes"
+      location_source: "google" | "device"
       payment_method:
         | "cash_usd"
         | "cash_ves"
@@ -1088,6 +1160,7 @@ export const Constants = {
   public: {
     Enums: {
       list_kind: ["places", "dishes"],
+      location_source: ["google", "device"],
       payment_method: [
         "cash_usd",
         "cash_ves",

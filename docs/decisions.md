@@ -4,6 +4,20 @@ Registro breve de decisiones que no son obvias leyendo el código. Agrega una en
 
 ---
 
+### 2026-11-11 — Fase 2 (lugares)
+
+- **Esqueleto sin Google.** La tarjeta no se pudo registrar en Google Cloud, así que todo funciona sin la clave: la Edge Function `places` responde `503 google_not_configured` y la app oculta la sección «En Google» sin mostrar error. Al guardar la clave (`GOOGLE_PLACES_API_KEY`) se activa sola, sin cambiar código.
+- **Términos de Google:** a largo plazo solo se guarda `google_place_id`. Las coordenadas que vienen de Google registran `location_fetched_at` y deben refrescarse antes de 30 días (tarea programada pendiente, se agrega con la clave). Las ubicaciones tomadas del teléfono (`location_source = 'device'`) no vencen.
+- **La información práctica sale de las visitas, no de quien crea el lugar** (decisión del fundador). Crear pide solo nombre, tipo, categorías, formas de atender, zonas y contacto; pagos, planta y estacionamiento los confirmarán las visitas (fase 3). Coherente con «Dicho y probado».
+- **Ubicación manual solo desde el lugar** («Usar mi ubicación actual», sin ubicación en segundo plano). Si no estás ahí, se busca en Google. Elegir el punto en un mapa queda para la fase 4, cuando se escoja el proveedor de mapas.
+- **Formulario en una sola página por bloques**, con campos que aparecen según la forma de atender.
+- **Creación atómica con RPC** `create_place` (lugar + categorías + zonas, slug único). La importación desde Google usa `import_google_place`, que solo puede ejecutar la Edge Function (secret key), para que un cliente no pueda atar un `google_place_id` falso a un lugar.
+- **Búsqueda sin acentos y tolerante a errores** (`search_places`, pg_trgm + `unaccent` con índice de expresión). También avisa de posibles duplicados al escribir el nombre.
+- **Rutas `/add-place` y `/add-place/new`**, no `/place/new`: un lugar llamado «New» tendría ese slug y quedaría tapado por la ruta fija.
+- **Lugares solo se crean vía funciones** (hallazgo de la revisión de código): sin `INSERT` directo en `places`, `place_tags` ni `place_service_areas`. `create_place` es _security definer_ y valida en el servidor lo mismo que Zod (categorías, zonas de la ciudad, límites de Venezuela, formato de WhatsApp/Instagram). Antes, un usuario podía atar el `google_place_id` de un lugar real a uno falso con su propio WhatsApp.
+- **Pendiente (anotado):** límite de llamadas por usuario a la función de Google (por ahora, cuota diaria en Google Cloud) e idempotencia de `create_place` si se pierde la respuesta (hoy se mitiga con el aviso de duplicados).
+- **`verify_jwt = false` en `places`**: la verificación de la plataforma no entiende las llaves nuevas; la función valida la sesión del usuario en su propio código.
+
 ### 2026-11-10 — Fase 1 (login y perfil)
 
 - **Login nativo con `signInWithIdToken`**: Google con `@react-native-google-signin/google-signin`, Apple con `expo-apple-authentication` (con _nonce_). Requiere _development build_ (EAS); Expo Go sigue sirviendo para pantallas sin login (`expo start --go`).

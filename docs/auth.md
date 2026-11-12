@@ -11,13 +11,13 @@
 3. **Perfil**: se crea una sola vez (`profiles.insert` con la política «insert own profile»). El usuario es único sin distinguir mayúsculas (`citext`) y se valida con `usernameSchema` (`packages/shared/src/schemas/profile.ts`), igual que en la base.
 4. **Foto de perfil**: se comprime en el teléfono (512 px, WebP 0,7) y se sube a `avatars/{user_id}/{timestamp}.webp`. `profiles.avatar_path` guarda la ruta, no la URL.
 
-| Archivo | Qué hace |
-|---|---|
-| `features/auth/auth-provider.tsx` | Sesión global (`useSession`) |
-| `features/auth/google.ts` | Google Sign-In nativo (carga diferida: Expo Go no se cae) |
-| `features/auth/apple.ts` | Sign in with Apple (solo iPhone, con _nonce_) — listo, sin activar |
-| `features/profile/queries.ts` | `useMyProfile`, disponibilidad de usuario, crear/editar |
-| `features/profile/components/profile-form.tsx` | Formulario compartido de onboarding y edición |
+| Archivo                                        | Qué hace                                                           |
+| ---------------------------------------------- | ------------------------------------------------------------------ |
+| `features/auth/auth-provider.tsx`              | Sesión global (`useSession`)                                       |
+| `features/auth/google.ts`                      | Google Sign-In nativo (carga diferida: Expo Go no se cae)          |
+| `features/auth/apple.ts`                       | Sign in with Apple (solo iPhone, con _nonce_) — listo, sin activar |
+| `features/profile/queries.ts`                  | `useMyProfile`, disponibilidad de usuario, crear/editar            |
+| `features/profile/components/profile-form.tsx` | Formulario compartido de onboarding y edición                      |
 
 ## Expo Go vs. build de desarrollo
 

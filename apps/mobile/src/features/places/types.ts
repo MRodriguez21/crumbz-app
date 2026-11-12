@@ -5,6 +5,8 @@ export type ProofStatus =
   | 'confirmed'
   /** Only the place's own profile says so. */
   | 'unconfirmed'
+  /** Whoever added the place said so; no visit backs it yet. */
+  | 'stated'
   /** Nobody has reported it yet. */
   | 'unknown';
 

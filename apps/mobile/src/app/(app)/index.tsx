@@ -1,4 +1,5 @@
 import { router } from 'expo-router';
+import { Search } from 'lucide-react-native';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -54,11 +55,22 @@ export default function HomeScreen() {
           </Text>
         </View>
         <View style={styles.actions}>
-          <Button
-            label="Ver un lugar de ejemplo"
-            variant="inverse"
-            onPress={() => router.push(`/place/${DEMO_PLACE_SLUG}`)}
-          />
+          {/* TODO(phase-3): becomes "¿Dónde comiste?" inside the publish-visit flow. */}
+          <View style={styles.row}>
+            <Button
+              label="Buscar un lugar"
+              icon={Search}
+              variant="inverse"
+              onPress={() => router.push('/add-place')}
+            />
+          </View>
+          <View style={styles.row}>
+            <Button
+              label="Ver un lugar de ejemplo"
+              variant="outline"
+              onPress={() => router.push(`/place/${DEMO_PLACE_SLUG}`)}
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -76,5 +88,6 @@ const styles = StyleSheet.create({
   },
   body: { flex: 1, justifyContent: 'flex-end', gap: space.xl },
   copy: { gap: space.sm },
-  actions: { flexDirection: 'row' },
+  actions: { gap: space.sm },
+  row: { flexDirection: 'row' },
 });
