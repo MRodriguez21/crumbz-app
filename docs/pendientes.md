@@ -38,7 +38,8 @@ Pasos para activar: [Lugares → Activar Google Places](places.md#activar-google
 
 ## Verificación pendiente (no es código nuevo)
 
-- **Fase 3 en el emulador:** publicar con y sin conexión, con fotos, reintento y descarte. El emulador perdió la sesión de Google; falta que el fundador vuelva a entrar.
+- **Cámara la primera vez:** al conceder el permiso de cámara, la primera foto no llegó al formulario (las siguientes sí). Revisar en un teléfono real; si se repite, reintentar la toma tras conceder el permiso.
+- **Descartar una visita fallida:** probado en la lógica (tests), falta verlo en el emulador forzando un error permanente.
 - **iPhone:** confirmar que las fotos en JPEG se comprimen y suben bien.
 
 - Capturas de las pantallas de lugares en modo oscuro y con letra grande (1,3×).
@@ -62,12 +63,13 @@ Se hacen al volver a levantar el emulador para la Fase 3.
 
 ## Cerrados
 
-| Fecha      | Pendiente                                                                      | Cómo se cerró                                                                             |
-| ---------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| 2026-11-14 | Conectar «Publicar visita» y «¿Dónde comiste?» en Inicio                       | Fase 3                                                                                    |
-| 2026-11-14 | Que las visitas reporten pagos y estacionamiento                               | Bloque opcional «Lo práctico» (sin planta, decisión del fundador)                         |
-| 2026-11-14 | Lugar duplicado al reintentar con mala conexión                                | `create_place` recibe un id de solicitud y devuelve el mismo lugar; la app reintenta sola |
-| 2026-11-14 | Textos de permisos de iOS en inglés (ubicación precisa, movimiento, micrófono) | Texto en español; se quitaron los permisos de movimiento y micrófono, que no se usan      |
-| 2026-11-14 | Zonas de otra ciudad si cambiaba la ciudad con el formulario abierto           | El formulario se reinicia al cambiar la ciudad; el servidor ya lo validaba                |
-| 2026-11-11 | Diálogo de «Cerrar sesión» con colores de Android                              | Diálogo propio (`ConfirmDialog`)                                                          |
-| 2026-11-11 | Cualquier usuario podía insertar lugares saltándose las reglas                 | Lugares solo vía funciones (`…_places_harden`)                                            |
+| Fecha      | Pendiente                                                                      | Cómo se cerró                                                                                         |
+| ---------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| 2026-11-14 | Probar la Fase 3 en el emulador                                                | Publicada con foto, plato y datos prácticos; sin conexión + cierre forzado: se publicó sola al volver |
+| 2026-11-14 | Conectar «Publicar visita» y «¿Dónde comiste?» en Inicio                       | Fase 3                                                                                                |
+| 2026-11-14 | Que las visitas reporten pagos y estacionamiento                               | Bloque opcional «Lo práctico» (sin planta, decisión del fundador)                                     |
+| 2026-11-14 | Lugar duplicado al reintentar con mala conexión                                | `create_place` recibe un id de solicitud y devuelve el mismo lugar; la app reintenta sola             |
+| 2026-11-14 | Textos de permisos de iOS en inglés (ubicación precisa, movimiento, micrófono) | Texto en español; se quitaron los permisos de movimiento y micrófono, que no se usan                  |
+| 2026-11-14 | Zonas de otra ciudad si cambiaba la ciudad con el formulario abierto           | El formulario se reinicia al cambiar la ciudad; el servidor ya lo validaba                            |
+| 2026-11-11 | Diálogo de «Cerrar sesión» con colores de Android                              | Diálogo propio (`ConfirmDialog`)                                                                      |
+| 2026-11-11 | Cualquier usuario podía insertar lugares saltándose las reglas                 | Lugares solo vía funciones (`…_places_harden`)                                                        |

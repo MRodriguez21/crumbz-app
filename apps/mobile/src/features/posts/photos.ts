@@ -150,3 +150,7 @@ export async function deleteUploadedPhotos(userId: string, postId: string, photo
     });
   if (paths.length) await supabase.storage.from(POSTS_BUCKET).remove(paths);
 }
+
+/** Local thumbnail of a queued photo, to show a pending visit before it is uploaded. */
+export const localThumbUri = (postId: string, photo: Pick<QueuedPhoto, 'id' | 'ext'>) =>
+  localFile(postId, photo.id, photo.ext, true).uri;

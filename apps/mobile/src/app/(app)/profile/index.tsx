@@ -83,7 +83,7 @@ export default function MyProfileScreen() {
           ))}
         </View>
 
-        <PendingVisits />
+        <PendingVisits showAll />
         <MyVisits />
 
         <View style={[styles.signOut, { borderTopColor: c.line }]}>

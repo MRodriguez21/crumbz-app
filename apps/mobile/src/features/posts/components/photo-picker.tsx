@@ -41,13 +41,6 @@ export function PhotoPicker({ value, onChange }: Props) {
 
   return (
     <View style={styles.wrap}>
-      <View style={styles.labelRow}>
-        <Text variant="labelStrong">Fotos</Text>
-        <Text variant="label" tone="textMuted" tabular>
-          {`${value.length} de ${POST_PHOTOS_MAX}`}
-        </Text>
-      </View>
-
       {rows.map((row, r) => (
         <View key={r} style={styles.row}>
           {row.map((photo, i) =>
@@ -102,7 +95,7 @@ export function PhotoPicker({ value, onChange }: Props) {
         </View>
       ) : (
         <Text variant="label" tone="textMuted">
-          Opcional. Las comprimimos en tu teléfono para gastar pocos datos.
+          Las comprimimos en tu teléfono para gastar pocos datos.
         </Text>
       )}
     </View>
@@ -111,7 +104,6 @@ export function PhotoPicker({ value, onChange }: Props) {
 
 const styles = StyleSheet.create({
   wrap: { gap: space.sm },
-  labelRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
   row: { flexDirection: 'row', gap: space.sm },
   plate: { flex: 1, aspectRatio: photoAspectRatio },
   image: { flex: 1, borderRadius: radius.md },

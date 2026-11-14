@@ -293,6 +293,10 @@ The claim → proof pair is the system's signature move. Claim on the left in Bo
 
 Single and multiple choice in forms are full-width rows, never chips or boxed groups: Body label (optional muted Label description), a 20px radio or checkbox in ink on the right, a 1px `line` rule above every row and below the last, at least 48px tall. Disabled rows drop to 40% and say why in their description. Errors show only as the danger message under the group, not as a red outline. Form screens open with the title as Headline in the content; the top app bar keeps only the back button.
 
+### Visit Rows (ledger)
+
+A visit is a ledger row: a 40px 4:5 thumbnail slot (always reserved, `photo-placeholder` when there is no photo, so names line up), the place in Body Strong and "día · modalidad · $gasto p/p" in muted Label, the score on the right in Title with tabular figures. Rows are separated by 1px rules. Visits still on the phone use the same row with a status line ("Publicando…", "Se publicará cuando vuelva la conexión." in muted, "No se pudo publicar." in danger) and Body text actions underneath (Reintentar, Descartar in danger). A just-published visit shows "Publicada." in proof green for a few seconds: a confirmation, which is what green is for.
+
 ### Photo Plates
 
 A row of equal-width 4:5 plates with 8px gaps and 12px radius, filled with `photo-placeholder` until the image loads. The compact variant is 40px wide with 6px radius and 4px gaps.

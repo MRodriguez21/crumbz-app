@@ -105,7 +105,6 @@ export function DishPicker({ placeId, value, onChange }: Props) {
             autoCapitalize="sentences"
             autoCorrect={false}
             placeholder="Ej. Reina pepiada"
-            helper="Opcional."
             returnKeyType="done"
             onSubmitEditing={() => {
               if (exact) add({ dishId: exact.id, name: exact.name, recommended: false });

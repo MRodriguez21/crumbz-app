@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { Plus, Search } from 'lucide-react-native';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Avatar } from '@/components/avatar';
@@ -45,7 +45,13 @@ export default function HomeScreen() {
         </Pressable>
       </View>
 
-      <View style={styles.body}>
+      {/* Scrolls when pending visits make it taller than the screen; otherwise the
+          greeting and actions sit at the bottom, in thumb reach. */}
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.body}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.copy}>
           <Text variant="headline" accessibilityRole="header">
             {firstName ? `Hola, ${firstName}` : 'Hola'}
@@ -55,7 +61,7 @@ export default function HomeScreen() {
           </Text>
         </View>
         <View style={styles.actions}>
-          <PendingVisits />
+          <PendingVisits limit={2} />
           {/* Publishing a visit is the central action: it leads. */}
           <View style={styles.row}>
             <Button
@@ -74,7 +80,7 @@ export default function HomeScreen() {
             />
           </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -88,7 +94,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  body: { flex: 1, justifyContent: 'flex-end', gap: space.xl },
+  scroll: { flex: 1 },
+  body: { flexGrow: 1, justifyContent: 'flex-end', gap: space.xl },
   copy: { gap: space.sm },
   actions: { gap: space.sm },
   row: { flexDirection: 'row' },

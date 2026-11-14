@@ -1,6 +1,7 @@
 import {
   PAYMENT_METHOD_LABELS,
   PAYMENT_METHODS,
+  POST_PHOTOS_MAX,
   POST_BODY_MAX,
   SERVICE_MODE_LABELS,
   SERVICE_MODES,
@@ -153,6 +154,9 @@ export function VisitForm({ place, onQueued, onScrollTo }: Props) {
         <Text variant="bodySmall" tone="textMuted">
           {place.name}
         </Text>
+        <Text variant="label" tone="textMuted">
+          Solo el puntaje y cómo fue son obligatorios.
+        </Text>
       </View>
 
       <View {...track('rating')}>
@@ -197,8 +201,9 @@ export function VisitForm({ place, onQueued, onScrollTo }: Props) {
           value={spend}
           onChangeText={setSpend}
           keyboardType="decimal-pad"
-          placeholder="$12,50"
-          helper="En dólares. Opcional."
+          prefix="$"
+          placeholder="12,50"
+          helper="En dólares."
           error={errorFor('spendUsd')}
         />
       </View>
@@ -207,11 +212,11 @@ export function VisitForm({ place, onQueued, onScrollTo }: Props) {
         <DishPicker placeId={place.id} value={dishes} onChange={setDishes} />
       </Block>
 
-      <Block title="Fotos">
+      <Block title="Fotos" aside={`${photos.length} de ${POST_PHOTOS_MAX}`}>
         <PhotoPicker value={photos} onChange={setPhotos} />
       </Block>
 
-      <Block title="Lo práctico" note="Opcional. Ayuda a otros a saber qué esperar.">
+      <Block title="Lo práctico" note="Ayuda a otros a saber qué esperar.">
         <ChoiceList
           multiple
           label="¿Cómo pagaste?"
@@ -245,7 +250,6 @@ export function VisitForm({ place, onQueued, onScrollTo }: Props) {
             body.length > POST_BODY_MAX - 200 ? `${body.length}/${POST_BODY_MAX}` : undefined
           }
           placeholder="Qué pediste, cómo te atendieron, si volverías"
-          helper="Opcional."
         />
       </Block>
 
@@ -265,14 +269,33 @@ export function VisitForm({ place, onQueued, onScrollTo }: Props) {
   );
 }
 
-function Block({ title, note, children }: { title: string; note?: string; children: ReactNode }) {
-  const c = useColors();
+function Block({
+  title,
+  note,
+  aside,
+  children,
+}: {
+  title: string;
+  note?: string;
+  /** Right-aligned note on the title line, e.g. "1 de 6". */
+  aside?: string;
+  children: ReactNode;
+}) {
+  // No top rule: blocks often follow a ruled list, and two parallel hairlines read as
+  // noise. Space and the Title separate them.
   return (
-    <View style={[styles.block, { borderTopColor: c.line }]}>
+    <View style={styles.block}>
       <View style={styles.blockHeader}>
-        <Text variant="title" accessibilityRole="header">
-          {title}
-        </Text>
+        <View style={styles.titleRow}>
+          <Text variant="title" accessibilityRole="header">
+            {title}
+          </Text>
+          {aside ? (
+            <Text variant="label" tone="textMuted" tabular>
+              {aside}
+            </Text>
+          ) : null}
+        </View>
         {note ? (
           <Text variant="label" tone="textMuted">
             {note}
@@ -287,7 +310,12 @@ function Block({ title, note, children }: { title: string; note?: string; childr
 const styles = StyleSheet.create({
   form: { gap: space.xl },
   header: { gap: space.xxs },
-  block: { gap: space.lg, borderTopWidth: 1, paddingTop: space.xl },
+  block: { gap: space.lg, paddingTop: space.lg },
+  titleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+  },
   blockHeader: { gap: space.xxs },
   row: { flexDirection: 'row', borderTopWidth: 1, paddingTop: space.xl },
 });

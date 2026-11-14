@@ -104,6 +104,13 @@ export function subscribe(listener: () => void) {
 
 export const getSnapshot = () => items;
 
+/** How long a just-published visit stays listed as "Publicada" (confirmation). */
+const PUBLISHED_NOTICE_MS = 4_000;
+let published: QueuedVisit[] = [];
+
+/** Visits published in the last few seconds, to confirm them where they were listed. */
+export const getPublishedSnapshot = () => published;
+
 /** Called after each successful publish (to refresh queries). */
 export function setOnPublished(handler: ((visit: QueuedVisit) => void) | null) {
   onPublished = handler;
@@ -246,6 +253,12 @@ export async function processQueue(userId: string) {
         await persist(items.filter((i) => i.id !== next.id));
         deleteQueuedPhotos(next.id);
         onPublished?.(latest);
+        published = [...published, latest];
+        emit();
+        setTimeout(() => {
+          published = published.filter((p) => p.id !== latest.id);
+          emit();
+        }, PUBLISHED_NOTICE_MS);
       } else {
         await replace(markFailedAttempt(latest, outcome, Date.now()));
       }

@@ -1,72 +1,113 @@
-import { useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { router } from 'expo-router';
+import { useState, type ReactNode } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import { ConfirmDialog } from '@/components/confirm-dialog';
 import { Text } from '@/components/text';
 import { useSession } from '@/features/auth/auth-provider';
-import { space, touchTarget, useColors } from '@/theme';
+import { space } from '@/theme';
 
+import { localThumbUri } from '../photos';
 import { discardVisit, retryVisit, type QueuedVisit } from '../queue';
-import { usePendingVisits } from '../use-publish-queue';
+import { useJustPublished, usePendingVisits } from '../use-publish-queue';
+import { RowAction, VisitRow, visitMeta } from './visit-row';
 
-const statusText = (v: QueuedVisit) => {
-  if (v.status === 'failed') return 'No se pudo publicar.';
-  if (v.status === 'publishing' || v.attempts === 0) return 'Publicando…';
-  return 'Se publicará cuando vuelva la conexión.';
+/** Home has little room: show the oldest few and point to the profile for the rest. */
+const DEFAULT_LIMIT = 2;
+
+const statusOf = (v: QueuedVisit) => {
+  if (v.status === 'failed') return { text: 'No se pudo publicar.', tone: 'danger' as const };
+  if (v.status === 'publishing' || v.attempts === 0) {
+    return { text: 'Publicando…', tone: 'textMuted' as const };
+  }
+  return { text: 'Se publicará cuando vuelva la conexión.', tone: 'textMuted' as const };
+};
+
+type Props = {
+  /** Only this place's visits (place page): rows then skip the place name. */
+  placeId?: string;
+  /** Max rows before "y N más" (home). Unlimited when omitted with `showAll`. */
+  limit?: number;
+  showAll?: boolean;
 };
 
 /**
- * Visits still on the phone. A visit only leaves this list by being published or by the
- * user confirming the discard; failed ones offer "Reintentar".
+ * Visits still on the phone, in the same ledger form as published ones. A visit only
+ * leaves this list by being published (shown as "Publicada" for a moment) or by the
+ * user confirming the discard.
  */
-export function PendingVisits({ placeId }: { placeId?: string }) {
-  const c = useColors();
+export function PendingVisits({ placeId, limit = DEFAULT_LIMIT, showAll }: Props) {
   const { session } = useSession();
-  const all = usePendingVisits();
-  const visits = placeId ? all.filter((v) => v.payload.post.placeId === placeId) : all;
+  const inPlace = (v: QueuedVisit) => !placeId || v.payload.post.placeId === placeId;
+  const pending = usePendingVisits().filter(inPlace);
+  const justPublished = useJustPublished().filter(inPlace);
   const [discarding, setDiscarding] = useState<QueuedVisit | null>(null);
 
-  if (visits.length === 0) return null;
+  const total = pending.length + justPublished.length;
+  if (total === 0) return null;
+
+  const max = showAll || placeId ? Infinity : limit;
+  const shown = pending.slice(0, max);
+  const hidden = pending.length - shown.length;
+
+  const heading =
+    pending.length === 0
+      ? 'Visita publicada'
+      : pending.length === 1
+        ? 'Visita por publicar'
+        : `${pending.length} visitas por publicar`;
+
+  const row = (
+    v: QueuedVisit,
+    i: number,
+    status: { text: string; tone: 'danger' | 'textMuted' | 'proof' },
+    actions?: ReactNode,
+  ) => {
+    const { post, placeName, photos } = v.payload;
+    const cover = photos[0];
+    return (
+      <VisitRow
+        key={v.id}
+        first={i === 0}
+        title={placeId ? undefined : placeName}
+        meta={visitMeta(post.visitedOn, post.mode, post.spendUsd)}
+        rating={post.rating}
+        thumbUri={cover ? localThumbUri(v.id, cover) : null}
+        status={status}
+        actions={actions}
+      />
+    );
+  };
 
   return (
-    <View style={styles.wrap} accessibilityLiveRegion="polite">
-      <Text variant="labelStrong">
-        {visits.length === 1 ? 'Visita por publicar' : `${visits.length} visitas por publicar`}
-      </Text>
-      <View style={[styles.list, { borderBottomColor: c.line }]}>
-        {visits.map((v) => (
-          <View key={v.id} style={[styles.row, { borderTopColor: c.line }]}>
-            <View style={styles.text}>
-              <Text variant="bodyStrong" numberOfLines={1}>
-                {`${v.payload.placeName} · ${v.payload.post.rating}`}
-              </Text>
-              <Text variant="label" tone={v.status === 'failed' ? 'danger' : 'textMuted'}>
-                {statusText(v)}
-              </Text>
-            </View>
-            {v.status !== 'publishing' && session ? (
-              <Pressable
-                accessibilityRole="button"
-                onPress={() => void retryVisit(v.id, session.user.id)}
-                style={({ pressed }) => [styles.action, pressed && { backgroundColor: c.pressed }]}
-              >
-                <Text variant="label">Reintentar</Text>
-              </Pressable>
-            ) : null}
-            {v.status === 'failed' ? (
-              <Pressable
-                accessibilityRole="button"
-                onPress={() => setDiscarding(v)}
-                style={({ pressed }) => [styles.action, pressed && { backgroundColor: c.pressed }]}
-              >
-                <Text variant="label" tone="danger">
-                  Descartar
-                </Text>
-              </Pressable>
-            ) : null}
-          </View>
-        ))}
+    <View style={styles.wrap}>
+      <Text variant="labelStrong">{heading}</Text>
+      <View>
+        {justPublished.map((v, i) => row(v, i, { text: 'Publicada.', tone: 'proof' }))}
+        {shown.map((v, i) => {
+          const status = statusOf(v);
+          const canRetry = v.status === 'failed' || (v.status === 'pending' && v.attempts > 0);
+          const actions =
+            v.status === 'publishing' ? undefined : (
+              <>
+                {canRetry && session ? (
+                  <RowAction
+                    label="Reintentar"
+                    onPress={() => void retryVisit(v.id, session.user.id)}
+                  />
+                ) : null}
+                <RowAction label="Descartar" tone="danger" onPress={() => setDiscarding(v)} />
+              </>
+            );
+          return row(v, justPublished.length + i, status, actions);
+        })}
       </View>
+      {hidden > 0 ? (
+        <RowAction
+          label={hidden === 1 ? 'Ver 1 más en tu perfil' : `Ver ${hidden} más en tu perfil`}
+          onPress={() => router.push('/profile')}
+        />
+      ) : null}
 
       <ConfirmDialog
         visible={!!discarding}
@@ -86,19 +127,4 @@ export function PendingVisits({ placeId }: { placeId?: string }) {
 
 const styles = StyleSheet.create({
   wrap: { gap: space.xs },
-  list: { borderBottomWidth: 1 },
-  row: {
-    minHeight: touchTarget + space.sm,
-    borderTopWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.xs,
-  },
-  text: { flex: 1, gap: space.xxs, paddingVertical: space.sm },
-  action: {
-    minHeight: touchTarget,
-    justifyContent: 'center',
-    paddingHorizontal: space.sm,
-    borderRadius: 999,
-  },
 });

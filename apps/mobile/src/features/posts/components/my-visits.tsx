@@ -1,15 +1,14 @@
-import { SERVICE_MODE_LABELS, formatUsd, formatVisitDay } from '@crumbz/shared';
-import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { Plus } from 'lucide-react-native';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { Button } from '@/components/button';
 import { Text } from '@/components/text';
-import { photoAspectRatio, radius, space, touchTarget, useColors } from '@/theme';
+import { space, touchTarget } from '@/theme';
 
 import { photoUrl, thumbPath } from '../photos';
-import { useMyPosts, type MyPost } from '../queries';
+import { useMyPosts } from '../queries';
+import { VisitRow, visitMeta } from './visit-row';
 
 const startVisit = () => router.push({ pathname: '/add-place', params: { next: 'visit' } });
 
@@ -51,62 +50,25 @@ export function MyVisits() {
         </Text>
       </View>
       <View>
-        {posts.map((post, i) => (
-          <VisitRow key={post.id} post={post} first={i === 0} />
-        ))}
+        {posts.map((post, i) => {
+          const cover = [...post.photos].sort((a, b) => a.position - b.position)[0];
+          return (
+            <VisitRow
+              key={post.id}
+              first={i === 0}
+              title={post.place?.name ?? 'Lugar no disponible'}
+              meta={visitMeta(post.visited_on, post.mode, post.spend_per_person_usd)}
+              rating={post.rating}
+              thumbUri={cover ? photoUrl(thumbPath(cover.storage_path)) : null}
+              onPress={post.place ? () => router.push(`/place/${post.place!.slug}`) : undefined}
+            />
+          );
+        })}
       </View>
       <View style={styles.row}>
         <Button label="Publicar visita" icon={Plus} variant="outline" onPress={startVisit} />
       </View>
     </View>
-  );
-}
-
-function VisitRow({ post, first }: { post: MyPost; first: boolean }) {
-  const c = useColors();
-  const cover = [...post.photos].sort((a, b) => a.position - b.position)[0];
-  const meta = [
-    formatVisitDay(post.visited_on),
-    SERVICE_MODE_LABELS[post.mode],
-    post.spend_per_person_usd != null
-      ? `${formatUsd(Number(post.spend_per_person_usd))} p/p`
-      : null,
-  ]
-    .filter(Boolean)
-    .join(' · ');
-
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={`${post.place?.name ?? 'Lugar'}, puntaje ${post.rating} de 10, ${meta}`}
-      onPress={() => post.place && router.push(`/place/${post.place.slug}`)}
-      android_ripple={{ color: c.pressed }}
-      style={({ pressed }) => [
-        styles.visit,
-        !first && { borderTopWidth: 1, borderTopColor: c.line },
-        pressed && { backgroundColor: c.pressed },
-      ]}
-    >
-      {cover ? (
-        <Image
-          source={{ uri: photoUrl(thumbPath(cover.storage_path)) }}
-          style={[styles.thumb, { backgroundColor: c.photoPlaceholder }]}
-          contentFit="cover"
-          accessible={false}
-        />
-      ) : null}
-      <View style={styles.text}>
-        <Text variant="bodyStrong" numberOfLines={1}>
-          {post.place?.name ?? 'Lugar no disponible'}
-        </Text>
-        <Text variant="label" tone="textMuted" tabular numberOfLines={1}>
-          {meta}
-        </Text>
-      </View>
-      <Text variant="title" tabular>
-        {post.rating}
-      </Text>
-    </Pressable>
   );
 }
 
@@ -116,13 +78,4 @@ const styles = StyleSheet.create({
   empty: { gap: space.xs },
   row: { flexDirection: 'row', marginTop: space.sm },
   retry: { minHeight: touchTarget, justifyContent: 'center' },
-  visit: {
-    minHeight: touchTarget + space.md,
-    paddingVertical: space.sm,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space.md,
-  },
-  thumb: { width: 40, aspectRatio: photoAspectRatio, borderRadius: radius.sm },
-  text: { flex: 1, gap: space.xxs },
 });

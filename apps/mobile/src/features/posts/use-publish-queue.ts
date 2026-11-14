@@ -5,6 +5,7 @@ import { AppState } from 'react-native';
 import { useSession } from '@/features/auth/auth-provider';
 
 import {
+  getPublishedSnapshot,
   getSnapshot,
   loadQueue,
   processQueue,
@@ -18,6 +19,14 @@ export function usePendingVisits() {
   const { session } = useSession();
   const userId = session?.user.id;
   const all = useSyncExternalStore(subscribe, getSnapshot);
+  return useMemo(() => all.filter((i) => i.userId === userId), [all, userId]);
+}
+
+/** This user's visits published in the last few seconds (shown as "Publicada"). */
+export function useJustPublished() {
+  const { session } = useSession();
+  const userId = session?.user.id;
+  const all = useSyncExternalStore(subscribe, getPublishedSnapshot);
   return useMemo(() => all.filter((i) => i.userId === userId), [all, userId]);
 }
 
