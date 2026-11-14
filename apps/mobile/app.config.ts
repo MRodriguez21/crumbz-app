@@ -1,4 +1,5 @@
 import type { ExpoConfig } from 'expo/config';
+import { withInfoPlist } from 'expo/config-plugins';
 
 // Read the JSON directly: the Expo config loader can't import TypeScript from workspace packages.
 import identity from '../../packages/shared/src/app-identity.json';
@@ -56,6 +57,7 @@ const config: ExpoConfig = {
       {
         photosPermission: 'crumbz usa tus fotos para tu foto de perfil y tus visitas.',
         cameraPermission: 'crumbz usa la cámara para fotografiar lo que comes.',
+        microphonePermission: false,
       },
     ],
     [
@@ -86,4 +88,13 @@ const config: ExpoConfig = {
   },
 };
 
-export default config;
+// expo-location writes this iOS string in English. A mod registered before the plugins
+// runs after them, so this keeps every permission text in Spanish.
+export default withInfoPlist(config, (c) => {
+  c.modResults.NSLocationTemporaryUsageDescriptionDictionary = {
+    ExpoLocationFullAccuracy: LOCATION_PERMISSION,
+  };
+  // Added by expo-location's plugin; crumbz never reads motion activity.
+  delete c.modResults.NSMotionUsageDescription;
+  return c;
+});

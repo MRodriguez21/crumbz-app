@@ -39,6 +39,8 @@ export default function NewPlaceScreen() {
         ) : (
           <View onLayout={(e) => (formTop.current = e.nativeEvent.layout.y)}>
             <PlaceForm
+              // Areas belong to a city: start clean if the city ever changes.
+              key={cityId}
               initialName={name ?? ''}
               cityId={cityId}
               onScrollTo={(y) => scrollRef.current?.scrollTo({ y: formTop.current + y })}

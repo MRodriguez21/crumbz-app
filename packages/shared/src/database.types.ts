@@ -446,6 +446,7 @@ export type Database = {
           address: string | null
           area_id: number | null
           city_id: number
+          client_request_id: string | null
           created_at: string
           created_by: string | null
           google_place_id: string | null
@@ -473,6 +474,7 @@ export type Database = {
           address?: string | null
           area_id?: number | null
           city_id: number
+          client_request_id?: string | null
           created_at?: string
           created_by?: string | null
           google_place_id?: string | null
@@ -502,6 +504,7 @@ export type Database = {
           address?: string | null
           area_id?: number | null
           city_id?: number
+          client_request_id?: string | null
           created_at?: string
           created_by?: string | null
           google_place_id?: string | null
@@ -926,6 +929,7 @@ export type Database = {
           p_lng?: number
           p_name: string
           p_payment_methods?: Database["public"]["Enums"]["payment_method"][]
+          p_request_id?: string
           p_service_area_ids?: number[]
           p_service_modes: Database["public"]["Enums"]["service_mode"][]
           p_tag_ids?: number[]

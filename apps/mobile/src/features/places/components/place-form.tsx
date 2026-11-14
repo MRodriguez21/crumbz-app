@@ -9,6 +9,7 @@ import {
   type PlaceKind,
   type ServiceMode,
 } from '@crumbz/shared';
+import { randomUUID } from 'expo-crypto';
 import { router } from 'expo-router';
 import { Check, LocateFixed } from 'lucide-react-native';
 import { useRef, useState, type ReactNode } from 'react';
@@ -68,6 +69,8 @@ export function PlaceForm({ initialName, cityId, onScrollTo }: Props) {
   const tags = useTags();
   const areas = useAreas(cityId);
   const create = useCreatePlace();
+  // One id per form: if the response is lost and the user retries, no duplicate is created.
+  const [requestId] = useState(() => randomUUID());
 
   const [name, setName] = useState(initialName);
   const [kind, setKind] = useState<PlaceKind | null>(null);
@@ -155,7 +158,7 @@ export function PlaceForm({ initialName, cityId, onScrollTo }: Props) {
       return;
     }
     try {
-      const place = await create.mutateAsync(parsed.data);
+      const place = await create.mutateAsync({ ...parsed.data, requestId });
       router.replace(`/place/${place.slug}`);
     } catch (e) {
       setServerError(e instanceof Error ? e.message : 'No pudimos crear el lugar.');

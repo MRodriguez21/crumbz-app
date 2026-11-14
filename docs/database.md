@@ -50,6 +50,7 @@ Si `db:push` se queda colgado en "Initialising login role…", ver [Solución de
 | `20261112024349_places_functions`         | `create_place`, `import_google_place`, `search_places`, slugs y origen de la ubicación    |
 | `20261112024423_places_search_unaccent`   | Búsqueda de lugares sin acentos ni mayúsculas, con índice trigram de expresión            |
 | `20261112034237_places_harden`            | Lugares solo se crean vía funciones; validación en servidor y formato de contacto         |
+| `20261114132015_places_idempotent_create` | `create_place` idempotente: un reintento con el mismo id devuelve el mismo lugar          |
 
 ## Seguridad (RLS)
 

@@ -136,7 +136,9 @@ export function useImportGooglePlace() {
 export function useCreatePlace() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (p: PlaceCreateInput) => {
+    // Safe to retry: the server returns the same place for a repeated requestId.
+    retry: 2,
+    mutationFn: async ({ requestId, ...p }: PlaceCreateInput & { requestId: string }) => {
       const { data, error } = await supabase
         .rpc('create_place', {
           p_name: p.name,
@@ -154,6 +156,7 @@ export function useCreatePlace() {
           p_has_parking: p.hasParking ?? undefined,
           p_tag_ids: p.tagIds,
           p_service_area_ids: p.serviceAreaIds,
+          p_request_id: requestId,
         })
         .single();
       if (error) throw new Error('No pudimos crear el lugar. Inténtalo de nuevo.');

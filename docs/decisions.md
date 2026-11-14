@@ -15,7 +15,7 @@ Registro breve de decisiones que no son obvias leyendo el código. Agrega una en
 - **Búsqueda sin acentos y tolerante a errores** (`search_places`, pg_trgm + `unaccent` con índice de expresión). También avisa de posibles duplicados al escribir el nombre.
 - **Rutas `/add-place` y `/add-place/new`**, no `/place/new`: un lugar llamado «New» tendría ese slug y quedaría tapado por la ruta fija.
 - **Lugares solo se crean vía funciones** (hallazgo de la revisión de código): sin `INSERT` directo en `places`, `place_tags` ni `place_service_areas`. `create_place` es _security definer_ y valida en el servidor lo mismo que Zod (categorías, zonas de la ciudad, límites de Venezuela, formato de WhatsApp/Instagram). Antes, un usuario podía atar el `google_place_id` de un lugar real a uno falso con su propio WhatsApp.
-- **Pendiente (anotado):** límite de llamadas por usuario a la función de Google (por ahora, cuota diaria en Google Cloud) e idempotencia de `create_place` si se pierde la respuesta (hoy se mitiga con el aviso de duplicados).
+- **`create_place` es idempotente** (2026-11-14): la app genera un id por formulario y reintenta sola; el servidor devuelve el mismo lugar. Lo demás que falta está en [Pendientes](pendientes.md).
 - **`verify_jwt = false` en `places`**: la verificación de la plataforma no entiende las llaves nuevas; la función valida la sesión del usuario en su propio código.
 
 ### 2026-11-10 — Fase 1 (login y perfil)

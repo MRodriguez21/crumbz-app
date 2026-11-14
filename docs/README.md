@@ -12,6 +12,7 @@ Guías para trabajar en el proyecto. Las reglas de negocio, el alcance del MVP y
 | [Inicio de sesión y perfil](auth.md)        | Google/Apple, guardas de rutas, perfil y su configuración       |
 | [Lugares](places.md)                        | Buscar y crear lugares, Google Places y su configuración        |
 | [Decisiones técnicas](decisions.md)         | Registro de decisiones y su motivo                              |
+| [Pendientes](pendientes.md)                 | Bitácora de lo que falta, por qué y qué lo bloquea              |
 | [Solución de problemas](troubleshooting.md) | Errores conocidos y cómo resolverlos                            |
 
 Diseño: el contexto de producto está en [`PRODUCT.md`](../PRODUCT.md) y el sistema visual (colores, tipografía, componentes y sus reglas) en [`DESIGN.md`](../DESIGN.md). Los tokens viven en `packages/ui`.
