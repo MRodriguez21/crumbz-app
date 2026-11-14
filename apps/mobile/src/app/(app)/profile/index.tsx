@@ -10,6 +10,8 @@ import { ConfirmDialog } from '@/components/confirm-dialog';
 import { IconButton } from '@/components/icon-button';
 import { Text } from '@/components/text';
 import { useSignOut } from '@/features/auth/use-sign-out';
+import { MyVisits } from '@/features/posts/components/my-visits';
+import { PendingVisits } from '@/features/posts/components/pending-visits';
 import { avatarUrl } from '@/features/profile/avatar';
 import { useCities, useMyProfile } from '@/features/profile/queries';
 import { space, useColors } from '@/theme';
@@ -81,18 +83,8 @@ export default function MyProfileScreen() {
           ))}
         </View>
 
-        {profile.posts_count === 0 ? (
-          <View style={styles.empty}>
-            <Text variant="title">Todavía no has publicado visitas</Text>
-            <Text variant="bodySmall" tone="textMuted">
-              Tu primera visita ayuda a que otros sepan dónde comer, cuánto gastar y cómo pagar.
-            </Text>
-            {/* TODO(phase-3): open the publish-visit flow. */}
-            <Text variant="label" tone="textMuted">
-              Publicar visitas llega muy pronto.
-            </Text>
-          </View>
-        ) : null}
+        <PendingVisits />
+        <MyVisits />
 
         <View style={[styles.signOut, { borderTopColor: c.line }]}>
           <Button
@@ -134,6 +126,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   stat: { flex: 1, paddingVertical: space.md, alignItems: 'center', gap: space.xxs },
-  empty: { gap: space.xs },
   signOut: { flexDirection: 'row', borderTopWidth: 1, paddingTop: space.xl },
 });

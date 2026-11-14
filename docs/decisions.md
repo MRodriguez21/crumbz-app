@@ -4,6 +4,16 @@ Registro breve de decisiones que no son obvias leyendo el código. Agrega una en
 
 ---
 
+### 2026-11-14 — Fase 3 (publicar visita)
+
+- **Solo el puntaje y cómo fue son obligatorios.** Fotos (hasta 6), platos, gasto, comentario y lo práctico son opcionales (decisiones del fundador).
+- **Lo práctico sale de las visitas:** cómo pagaste y, si fuiste al local, si había estacionamiento. **No se pregunta por la planta eléctrica** (decisión del fundador); la página del lugar dejará de mostrar esa fila cuando se agreguen los datos en la fase 4.
+- **Cola sin conexión propia** (AsyncStorage + archivos en documentos), sin librerías nuevas. Las reglas (reintentos con espera creciente de 5 s a 10 min, qué errores son definitivos) son funciones puras con tests en `@crumbz/shared`. Una visita solo sale de la cola publicada o descartada por el usuario con confirmación.
+- **Idempotencia por id de visita:** el teléfono genera el id; `create_post` devuelve la misma visita si se reintenta.
+- **Fotos:** 1600 px y miniatura de 400 px, calidad 0,7. WebP en Android (ahorra datos), JPEG en iPhone (codificación fiable). En la cola se guardan solo nombres de archivo, porque en iOS la ruta absoluta cambia al actualizar la app.
+- **Límites anti-inflado:** máximo 3 visitas por lugar y 30 por día por usuario. Los rankings ya cuentan solo la última visita de cada persona.
+- **Inicio abre con «¿Dónde comiste?»:** buscar un lugar y seguir directo al formulario de visita.
+
 ### 2026-11-11 — Fase 2 (lugares)
 
 - **Esqueleto sin Google.** La tarjeta no se pudo registrar en Google Cloud, así que todo funciona sin la clave: la Edge Function `places` responde `503 google_not_configured` y la app oculta la sección «En Google» sin mostrar error. Al guardar la clave (`GOOGLE_PLACES_API_KEY`) se activa sola, sin cambiar código.

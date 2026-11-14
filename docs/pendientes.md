@@ -2,7 +2,7 @@
 
 Lo que quedó por hacer y por qué. Se actualiza al cerrar cada fase: lo resuelto pasa a «Cerrados» con su fecha, lo nuevo entra en su grupo. Los `TODO(fase-N)` del código apuntan a estas mismas tareas.
 
-Última revisión: 2026-11-14.
+Última revisión: 2026-11-14 (Fase 3).
 
 ## Bloqueados por algo externo
 
@@ -27,8 +27,8 @@ Pasos para activar: [Lugares → Activar Google Places](places.md#activar-google
 
 | Fase | Pendiente                                                                                                                                    |
 | ---- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| 3    | Conectar «Publicar visita» (página del lugar, perfil) y cambiar «Buscar un lugar» de Inicio por «¿Dónde comiste?»                            |
-| 3    | Que las visitas reporten pagos, planta y estacionamiento (hoy la página del lugar dice «sin datos aún»)                                      |
+| 4    | Puntaje, gasto, pagos y estacionamiento agregados desde las visitas en la página del lugar; quitar la fila de planta eléctrica               |
+| 4    | Fotos y platos más recomendados de las visitas en la página del lugar                                                                        |
 | 4    | «Cómo llegar» en la página del lugar y elegir ubicación en un mapa (depende del proveedor de mapas)                                          |
 | 4    | Fotos reales en la página del lugar (hoy hay marcadores de posición en el ejemplo)                                                           |
 | 4    | Analítica con PostHog: `search_performed`, `whatsapp_clicked`, `instagram_clicked`, `place_viewed` (falta la clave y el cliente)             |
@@ -38,6 +38,9 @@ Pasos para activar: [Lugares → Activar Google Places](places.md#activar-google
 
 ## Verificación pendiente (no es código nuevo)
 
+- **Fase 3 en el emulador:** publicar con y sin conexión, con fotos, reintento y descarte. El emulador perdió la sesión de Google; falta que el fundador vuelva a entrar.
+- **iPhone:** confirmar que las fotos en JPEG se comprimen y suben bien.
+
 - Capturas de las pantallas de lugares en modo oscuro y con letra grande (1,3×).
 - Ver en el emulador la búsqueda con resultados y el aviso «¿Es alguno de estos?».
 - Probar en el emulador que reintentar «Crear lugar» no duplica (probado en la base, no en la app).
@@ -45,6 +48,9 @@ Pasos para activar: [Lugares → Activar Google Places](places.md#activar-google
 Se hacen al volver a levantar el emulador para la Fase 3.
 
 ## Después del MVP
+
+- Al cerrar sesión, las visitas pendientes de esa cuenta quedan en el teléfono (no se borran para no perderlas) y se publican cuando esa cuenta vuelva a entrar. Falta decidir qué hacer si nunca vuelve.
+- Editar o borrar una visita publicada desde la app.
 
 - Que quien creó un lugar pueda corregir sus datos (hoy solo los administradores).
 - Lugares con local sin ubicación exacta (hoy la ubicación es obligatoria si atiende en el local).
@@ -58,6 +64,8 @@ Se hacen al volver a levantar el emulador para la Fase 3.
 
 | Fecha      | Pendiente                                                                      | Cómo se cerró                                                                             |
 | ---------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
+| 2026-11-14 | Conectar «Publicar visita» y «¿Dónde comiste?» en Inicio                       | Fase 3                                                                                    |
+| 2026-11-14 | Que las visitas reporten pagos y estacionamiento                               | Bloque opcional «Lo práctico» (sin planta, decisión del fundador)                         |
 | 2026-11-14 | Lugar duplicado al reintentar con mala conexión                                | `create_place` recibe un id de solicitud y devuelve el mismo lugar; la app reintenta sola |
 | 2026-11-14 | Textos de permisos de iOS en inglés (ubicación precisa, movimiento, micrófono) | Texto en español; se quitaron los permisos de movimiento y micrófono, que no se usan      |
 | 2026-11-14 | Zonas de otra ciudad si cambiaba la ciudad con el formulario abierto           | El formulario se reinicia al cambiar la ciudad; el servidor ya lo validaba                |

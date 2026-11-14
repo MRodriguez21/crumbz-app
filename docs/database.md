@@ -40,17 +40,19 @@ Si `db:push` se queda colgado en "Initialising login role…", ver [Solución de
 
 ### Historial actual
 
-| Migración                                 | Qué hace                                                                                  |
-| ----------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `20261025184418_schema_mvp`               | Esquema completo del MVP (tablas, índices, triggers, RLS, rankings, datos base)           |
-| `20261025184425_column_update_privileges` | Corrige la protección de contadores (ver abajo)                                           |
-| `20261025184454_harden_functions`         | `search_path` fijo en funciones; las funciones de trigger dejan de ser invocables por RPC |
-| `20261111024542_rls_performance`          | Políticas RLS con `(select auth.uid())`, sin solapamientos, e índices en claves foráneas  |
-| `20261111024550_avatars_storage`          | Bucket público `avatars` y políticas: cada usuario escribe solo en su carpeta             |
-| `20261112024349_places_functions`         | `create_place`, `import_google_place`, `search_places`, slugs y origen de la ubicación    |
-| `20261112024423_places_search_unaccent`   | Búsqueda de lugares sin acentos ni mayúsculas, con índice trigram de expresión            |
-| `20261112034237_places_harden`            | Lugares solo se crean vía funciones; validación en servidor y formato de contacto         |
-| `20261114132015_places_idempotent_create` | `create_place` idempotente: un reintento con el mismo id devuelve el mismo lugar          |
+| Migración                                 | Qué hace                                                                                                             |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `20261025184418_schema_mvp`               | Esquema completo del MVP (tablas, índices, triggers, RLS, rankings, datos base)                                      |
+| `20261025184425_column_update_privileges` | Corrige la protección de contadores (ver abajo)                                                                      |
+| `20261025184454_harden_functions`         | `search_path` fijo en funciones; las funciones de trigger dejan de ser invocables por RPC                            |
+| `20261111024542_rls_performance`          | Políticas RLS con `(select auth.uid())`, sin solapamientos, e índices en claves foráneas                             |
+| `20261111024550_avatars_storage`          | Bucket público `avatars` y políticas: cada usuario escribe solo en su carpeta                                        |
+| `20261112024349_places_functions`         | `create_place`, `import_google_place`, `search_places`, slugs y origen de la ubicación                               |
+| `20261112024423_places_search_unaccent`   | Búsqueda de lugares sin acentos ni mayúsculas, con índice trigram de expresión                                       |
+| `20261112034237_places_harden`            | Lugares solo se crean vía funciones; validación en servidor y formato de contacto                                    |
+| `20261114132015_places_idempotent_create` | `create_place` idempotente: un reintento con el mismo id devuelve el mismo lugar                                     |
+| `20261114132936_posts_publish`            | `create_post` (visita, platos y fotos en un paso, idempotente), bucket `posts`, pagos y estacionamiento en la visita |
+| `20261114190140_posts_publish_harden`     | Rutas de fotos exactas, modalidad que ofrece el lugar, máximo 3 visitas por lugar y 30 al día                        |
 
 ## Seguridad (RLS)
 
@@ -61,6 +63,10 @@ Si `db:push` se queda colgado en "Initialising login role…", ver [Solución de
 ### Crear lugares
 
 Ni `anon` ni `authenticated` pueden insertar en `places`, `place_tags` ni `place_service_areas`: solo `create_place()` (usuarios) e `import_google_place()` (Edge Function). Así nadie puede atar un `google_place_id` ajeno a un lugar falso ni saltarse las reglas.
+
+### Publicar visitas
+
+Tampoco se inserta directo en `posts`, `post_dishes`, `post_photos` ni `dishes`: solo `create_post()`. Recibe el id de la visita generado en el teléfono, así que un reintento de la cola sin conexión devuelve la misma visita en vez de duplicarla. Las fotos van en el bucket público `posts` en `{user_id}/{post_id}/{photo_id}.webp|jpg` (más `{photo_id}_thumb…`), y cada usuario solo escribe en su carpeta.
 
 ### Contadores y columnas protegidas
 

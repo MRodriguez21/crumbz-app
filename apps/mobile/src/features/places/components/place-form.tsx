@@ -30,6 +30,8 @@ type Props = {
   cityId: number;
   /** Scrolls the screen so `y` (relative to the form's top) is in view. */
   onScrollTo?: (y: number) => void;
+  /** Where to go once the place exists (defaults to its page). */
+  onCreated?: (slug: string) => void;
 };
 
 type Field =
@@ -64,7 +66,7 @@ const NO_AREA = 0;
  * Manual place creation, one page in three blocks. Practical facts (payments, generator,
  * parking) are not asked here: visits confirm them (phase 3).
  */
-export function PlaceForm({ initialName, cityId, onScrollTo }: Props) {
+export function PlaceForm({ initialName, cityId, onScrollTo, onCreated }: Props) {
   const c = useColors();
   const tags = useTags();
   const areas = useAreas(cityId);
@@ -159,7 +161,8 @@ export function PlaceForm({ initialName, cityId, onScrollTo }: Props) {
     }
     try {
       const place = await create.mutateAsync({ ...parsed.data, requestId });
-      router.replace(`/place/${place.slug}`);
+      if (onCreated) onCreated(place.slug);
+      else router.replace(`/place/${place.slug}`);
     } catch (e) {
       setServerError(e instanceof Error ? e.message : 'No pudimos crear el lugar.');
     }

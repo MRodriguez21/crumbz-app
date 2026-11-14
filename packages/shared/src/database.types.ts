@@ -678,9 +678,11 @@ export type Database = {
         Row: {
           body: string | null
           created_at: string
+          has_parking: boolean | null
           id: string
           likes_count: number
           mode: Database["public"]["Enums"]["service_mode"]
+          payment_methods: Database["public"]["Enums"]["payment_method"][]
           place_id: string
           rating: number
           spend_per_person_usd: number | null
@@ -691,9 +693,11 @@ export type Database = {
         Insert: {
           body?: string | null
           created_at?: string
+          has_parking?: boolean | null
           id?: string
           likes_count?: number
           mode: Database["public"]["Enums"]["service_mode"]
+          payment_methods?: Database["public"]["Enums"]["payment_method"][]
           place_id: string
           rating: number
           spend_per_person_usd?: number | null
@@ -704,9 +708,11 @@ export type Database = {
         Update: {
           body?: string | null
           created_at?: string
+          has_parking?: boolean | null
           id?: string
           likes_count?: number
           mode?: Database["public"]["Enums"]["service_mode"]
+          payment_methods?: Database["public"]["Enums"]["payment_method"][]
           place_id?: string
           rating?: number
           spend_per_person_usd?: number | null
@@ -939,6 +945,22 @@ export type Database = {
           id: string
           slug: string
         }[]
+      }
+      create_post: {
+        Args: {
+          p_body?: string
+          p_dishes?: Json
+          p_has_parking?: boolean
+          p_id: string
+          p_mode: Database["public"]["Enums"]["service_mode"]
+          p_payment_methods?: Database["public"]["Enums"]["payment_method"][]
+          p_photos?: Json
+          p_place_id: string
+          p_rating: number
+          p_spend_usd?: number
+          p_visited_on?: string
+        }
+        Returns: string
       }
       immutable_unaccent: { Args: { p: string }; Returns: string }
       import_google_place: {

@@ -1,12 +1,12 @@
 import { router } from 'expo-router';
-import { Search } from 'lucide-react-native';
+import { Plus, Search } from 'lucide-react-native';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Avatar } from '@/components/avatar';
 import { Button } from '@/components/button';
 import { Text } from '@/components/text';
-import { DEMO_PLACE_SLUG } from '@/features/places/demo-place';
+import { PendingVisits } from '@/features/posts/components/pending-visits';
 import { avatarUrl } from '@/features/profile/avatar';
 import { useMyProfile } from '@/features/profile/queries';
 import { space, touchTarget, useColors } from '@/theme';
@@ -55,20 +55,22 @@ export default function HomeScreen() {
           </Text>
         </View>
         <View style={styles.actions}>
-          {/* TODO(phase-3): becomes "¿Dónde comiste?" inside the publish-visit flow. */}
+          <PendingVisits />
+          {/* Publishing a visit is the central action: it leads. */}
           <View style={styles.row}>
             <Button
-              label="Buscar un lugar"
-              icon={Search}
+              label="¿Dónde comiste?"
+              icon={Plus}
               variant="inverse"
-              onPress={() => router.push('/add-place')}
+              onPress={() => router.push({ pathname: '/add-place', params: { next: 'visit' } })}
             />
           </View>
           <View style={styles.row}>
             <Button
-              label="Ver un lugar de ejemplo"
+              label="Buscar un lugar"
+              icon={Search}
               variant="outline"
-              onPress={() => router.push(`/place/${DEMO_PLACE_SLUG}`)}
+              onPress={() => router.push('/add-place')}
             />
           </View>
         </View>

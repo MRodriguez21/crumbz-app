@@ -15,7 +15,7 @@ const BackIcon = Platform.OS === 'ios' ? ChevronLeft : ArrowLeft;
 export default function NewPlaceScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
-  const { name } = useLocalSearchParams<{ name?: string }>();
+  const { name, next } = useLocalSearchParams<{ name?: string; next?: 'visit' }>();
   const cityId = useCurrentCityId();
   const scrollRef = useRef<ComponentRef<typeof ScrollView>>(null);
   const formTop = useRef(0);
@@ -43,6 +43,9 @@ export default function NewPlaceScreen() {
               key={cityId}
               initialName={name ?? ''}
               cityId={cityId}
+              onCreated={(slug) =>
+                router.replace(next === 'visit' ? `/visit/${slug}` : `/place/${slug}`)
+              }
               onScrollTo={(y) => scrollRef.current?.scrollTo({ y: formTop.current + y })}
             />
           </View>

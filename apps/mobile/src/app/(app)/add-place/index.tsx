@@ -1,6 +1,6 @@
 import { fontFamily, typography } from '@crumbz/ui';
 import { randomUUID } from 'expo-crypto';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { ArrowLeft, ChevronLeft, Plus, Search, X } from 'lucide-react-native';
 import { useState } from 'react';
 import { Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
@@ -28,6 +28,11 @@ export default function SearchPlaceScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
   const cityId = useCurrentCityId();
+  // "¿Dónde comiste?": picking a place continues to the visit form instead of the place page.
+  const { next } = useLocalSearchParams<{ next?: 'visit' }>();
+  const forVisit = next === 'visit';
+  const open = (slug: string) =>
+    forVisit ? router.replace(`/visit/${slug}`) : router.push(`/place/${slug}`);
   const [input, setInput] = useState('');
   // One Google billing session per search-then-pick.
   const [sessionToken, setSessionToken] = useState(() => randomUUID());
@@ -45,14 +50,14 @@ export default function SearchPlaceScreen() {
   const googleSuggestions = google.data?.available ? google.data.suggestions : [];
 
   const openGoogle = async (googlePlaceId: string, existingSlug?: string) => {
-    if (existingSlug) return router.push(`/place/${existingSlug}`);
+    if (existingSlug) return open(existingSlug);
     if (cityId == null) return;
     setImportingId(googlePlaceId);
     setImportError(undefined);
     try {
       const { slug } = await importPlace.mutateAsync({ googlePlaceId, sessionToken, cityId });
       setSessionToken(randomUUID());
-      router.push(`/place/${slug}`);
+      open(slug);
     } catch (e) {
       setImportError(e instanceof Error ? e.message : undefined);
     } finally {
@@ -75,10 +80,10 @@ export default function SearchPlaceScreen() {
             autoComplete="off"
             importantForAutofill="no"
             returnKeyType="search"
-            placeholder="Busca un lugar"
+            placeholder={forVisit ? '¿Dónde comiste?' : 'Busca un lugar'}
             placeholderTextColor={c.textMuted}
             selectionColor={c.text}
-            accessibilityLabel="Busca un lugar"
+            accessibilityLabel={forVisit ? '¿Dónde comiste?' : 'Busca un lugar'}
             style={[styles.searchInput, { color: c.text }]}
           />
           {input ? (
@@ -122,7 +127,7 @@ export default function SearchPlaceScreen() {
                     kind={p.kind}
                     serviceModes={p.service_modes}
                     areaName={p.area_name}
-                    onPress={() => router.push(`/place/${p.slug}`)}
+                    onPress={() => open(p.slug)}
                   />
                 ))}
               </View>
@@ -171,7 +176,10 @@ export default function SearchPlaceScreen() {
         <Pressable
           accessibilityRole="button"
           onPress={() =>
-            router.push({ pathname: '/add-place/new', params: { name: input.trim() } })
+            router.push({
+              pathname: '/add-place/new',
+              params: { name: input.trim(), ...(forVisit && { next: 'visit' }) },
+            })
           }
           android_ripple={{ color: c.pressed }}
           style={({ pressed }) => [

@@ -10,6 +10,8 @@ import { radius, space, touchTarget, useColors } from '@/theme';
 
 import type { PlaceDetail } from '../queries';
 import type { ProofFact } from '../types';
+import { PendingVisits } from '@/features/posts/components/pending-visits';
+
 import { PlaceActionBar } from './place-action-bar';
 import { placeMeta } from './place-row';
 import { ProofPair } from './proof-pair';
@@ -116,6 +118,8 @@ export function PlaceView({ place }: { place: PlaceDetail }) {
           </Text>
         </View>
 
+        <PendingVisits placeId={place.id} />
+
         <View>
           {factsFor(place).map((fact, i) => (
             <ProofPair key={fact.id} fact={fact} first={i === 0} />
@@ -126,8 +130,7 @@ export function PlaceView({ place }: { place: PlaceDetail }) {
       <PlaceActionBar
         whatsapp={place.whatsapp}
         instagram={place.instagram}
-        // TODO(phase-3): open the publish-visit flow prefilled with this place.
-        onPublish={() => undefined}
+        onPublish={() => router.push(`/visit/${place.slug}`)}
       />
     </View>
   );
