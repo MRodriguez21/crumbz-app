@@ -4,6 +4,17 @@ Registro breve de decisiones que no son obvias leyendo el código. Agrega una en
 
 ---
 
+### 2026-11-17 — Fase 4 (página del lugar y Explorar)
+
+- **Mapa desde ya, sin Google:** MapLibre con mapas de OpenStreetMap servidos por OpenFreeMap (gratis, sin cuenta ni clave; la atribución de OSM queda visible). Google Maps está bloqueado por la facturación y Mapbox pide cuenta. Cambiar de proveedor es cambiar la URL del estilo.
+- **Pestañas abajo:** Inicio, Explorar y Perfil (Material, 3 destinos). «Listas» entra en la fase 5.
+- **Puntaje del lugar = promedio de la última visita de cada persona**, con «de N personas reales» y la distribución (decisión del fundador). Se calcula al leer (`place_summary`), así que una visita nueva se ve al instante. Los rankings de la fase 5 seguirán usando el promedio bayesiano precalculado para ordenar.
+- **La información práctica sale de las visitas:** gasto (rango intercuartil de las visitas de los últimos 12 meses que reportaron monto, para que una segunda visita sin gasto no oculte el dato), cómo pagaron («reportado en N visitas») y estacionamiento (lo que dijo la mayoría, con su conteo). Se quitó la fila de planta eléctrica.
+- **«Cómo llegar»** abre la app de mapas del teléfono (Google Maps o Apple Maps) con las coordenadas; no hace falta clave.
+- **Explorar:** cerca de mí (radio de 15 km, solo lugares con local), por zona (incluye los que hacen delivery a esa zona) y por categoría, con mapa y lista sincronizados.
+- **Orden de Explorar = promedio bayesiano** (misma fórmula que los rankings), aunque la fila muestre el promedio simple con su número de personas. Así un lugar con un solo 10 no queda por encima de uno con cuarenta 9 (revisión de diseño, regla del §8 de CLAUDE.md).
+- **Ubicación en Android:** si la persona rechaza la «Precisión de la ubicación» de Google, se usa el GPS igual (y la última ubicación de 5 minutos como respaldo). Ese aviso de Google sale como máximo una vez por sesión.
+
 ### 2026-11-14 — Fase 3 (publicar visita)
 
 - **Solo el puntaje y cómo fue son obligatorios.** Fotos (hasta 6), platos, gasto, comentario y lo práctico son opcionales (decisiones del fundador).

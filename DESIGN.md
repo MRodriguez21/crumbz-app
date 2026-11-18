@@ -305,6 +305,20 @@ A row of equal-width 4:5 plates with 8px gaps and 12px radius, filled with `phot
 
 A minimal top app bar with no title and no fill: back on the left, page actions on the right, all as icon buttons. Persistent page actions live in the fixed bottom action bar, not in floating buttons.
 
+Three bottom tabs (Inicio, Explorar, Perfil): Lucide icons with Manrope 500 labels at 12px, ink when active and muted when not, a hairline on top and no elevation. Tab screens open with a Headline instead of an app bar.
+
+### Filter Row
+
+Filters are not chips. They sit in a fixed row of equal cells between hairlines (1px rules on top and between cells), at least 48px tall. An idle cell shows its name in muted Body with a chevron. An active cell shows the chosen value in ink Body Strong, truncated to one line, with a 2px ink underline. Choosing a value opens a Select Sheet.
+
+### Select Sheet
+
+A bottom sheet on `surface-raised` over the scrim: a Title, then one option per row separated by hairlines, with a check on the chosen one. It is at most 75% of the screen tall and scrolls.
+
+### Map
+
+Quiet near-monochrome tiles (OpenFreeMap Positron, or Dark in dark mode) so the pins lead. A place is an ink-bordered `surface-raised` pill with its score in Label Strong, inside a 44×44 transparent tap area. "You" is drawn as a map layer (ink dot, background ring, soft `pressed` halo), so it always sits under the pins. The OSM attribution is muted Label text in the corner that links to the copyright page. A place without a location has no pin, and the list explains why it is listed (for example "llega a Chacao").
+
 ## Do's and Don'ts
 
 ### Do:

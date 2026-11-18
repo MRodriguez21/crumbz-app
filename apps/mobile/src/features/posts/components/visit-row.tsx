@@ -26,6 +26,8 @@ type Props = {
   /** Thumbnail URI. The slot is always reserved so names line up in one column. */
   thumbUri?: string | null;
   status?: { text: string; tone: ColorRole };
+  /** A few lines of the visit's comment. */
+  excerpt?: string | null;
   actions?: ReactNode;
   onPress?: () => void;
   first?: boolean;
@@ -38,6 +40,7 @@ export function VisitRow({
   rating,
   thumbUri,
   status,
+  excerpt,
   actions,
   onPress,
   first,
@@ -82,6 +85,11 @@ export function VisitRow({
           {status ? (
             <Text variant="label" tone={status.tone} accessibilityLiveRegion="polite">
               {status.text}
+            </Text>
+          ) : null}
+          {excerpt ? (
+            <Text variant="bodySmall" numberOfLines={3}>
+              {excerpt}
             </Text>
           ) : null}
         </View>

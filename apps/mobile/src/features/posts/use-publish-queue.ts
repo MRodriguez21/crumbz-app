@@ -49,6 +49,10 @@ export function usePublishQueueRunner() {
         queryKey: ['places', 'detail', visit.payload.placeSlug],
       });
       void queryClient.invalidateQueries({ queryKey: ['dishes', visit.payload.post.placeId] });
+      void queryClient.invalidateQueries({
+        queryKey: ['places', 'summary', visit.payload.post.placeId],
+      });
+      void queryClient.invalidateQueries({ queryKey: ['places', 'explore'] });
     });
 
     // A failed read is retried on the next resume; nothing is written meanwhile.

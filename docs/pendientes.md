@@ -2,7 +2,7 @@
 
 Lo que quedó por hacer y por qué. Se actualiza al cerrar cada fase: lo resuelto pasa a «Cerrados» con su fecha, lo nuevo entra en su grupo. Los `TODO(fase-N)` del código apuntan a estas mismas tareas.
 
-Última revisión: 2026-11-14 (Fase 3).
+Última revisión: 2026-11-18 (Fase 4).
 
 ## Bloqueados por algo externo
 
@@ -27,11 +27,8 @@ Pasos para activar: [Lugares → Activar Google Places](places.md#activar-google
 
 | Fase | Pendiente                                                                                                                                    |
 | ---- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| 4    | Puntaje, gasto, pagos y estacionamiento agregados desde las visitas en la página del lugar; quitar la fila de planta eléctrica               |
-| 4    | Fotos y platos más recomendados de las visitas en la página del lugar                                                                        |
-| 4    | «Cómo llegar» en la página del lugar y elegir ubicación en un mapa (depende del proveedor de mapas)                                          |
-| 4    | Fotos reales en la página del lugar (hoy hay marcadores de posición en el ejemplo)                                                           |
-| 4    | Analítica con PostHog: `search_performed`, `whatsapp_clicked`, `instagram_clicked`, `place_viewed` (falta la clave y el cliente)             |
+| 5    | Elegir la ubicación en el mapa al crear un lugar (hoy solo con el GPS del teléfono, hay que estar ahí)                                       |
+| 5    | Analítica con PostHog: `search_performed`, `whatsapp_clicked`, `instagram_clicked`, `place_viewed` (falta la clave y el cliente)             |
 | 8    | Enlaces a Términos y Privacidad en el inicio de sesión (el texto ya los menciona). **Obligatorio antes de la prueba cerrada de Google Play** |
 | 8    | Compartir la URL web del lugar en vez de solo el nombre                                                                                      |
 | 9    | Revisar en un iPhone real que todos los textos de permisos salgan en español                                                                 |
@@ -42,11 +39,12 @@ Pasos para activar: [Lugares → Activar Google Places](places.md#activar-google
 - **Descartar una visita fallida:** probado en la lógica (tests), falta verlo en el emulador forzando un error permanente.
 - **iPhone:** confirmar que las fotos en JPEG se comprimen y suben bien.
 
-- Capturas de las pantallas de lugares en modo oscuro y con letra grande (1,3×).
+- Capturas de las pantallas de lugares y de Explorar en modo oscuro (mapa con estilo oscuro) y con letra grande (1,3×).
+- «Cómo llegar»: comprobar que abre Google Maps en Android y Apple Maps en iPhone con la ubicación correcta.
 - Ver en el emulador la búsqueda con resultados y el aviso «¿Es alguno de estos?».
 - Probar en el emulador que reintentar «Crear lugar» no duplica (probado en la base, no en la app).
 
-Se hacen al volver a levantar el emulador para la Fase 3.
+Se hacen en la próxima sesión con el emulador.
 
 ## Después del MVP
 
@@ -55,6 +53,8 @@ Se hacen al volver a levantar el emulador para la Fase 3.
 
 - Que quien creó un lugar pueda corregir sus datos (hoy solo los administradores).
 - Lugares con local sin ubicación exacta (hoy la ubicación es obligatoria si atiende en el local).
+
+- Explorar con muchos lugares: pasar los pines a una capa GeoJSON del mapa (pasados ~100) y la lista a FlashList (`TODO(scale)` en el código).
 
 ## Limpieza menor
 
@@ -65,6 +65,12 @@ Se hacen al volver a levantar el emulador para la Fase 3.
 
 | Fecha      | Pendiente                                                                      | Cómo se cerró                                                                                         |
 | ---------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| 2026-11-18 | Puntaje, gasto, pagos y estacionamiento desde las visitas; sin fila de planta  | `place_summary`: puntaje con la última visita de cada persona, gasto de los últimos 12 meses          |
+| 2026-11-18 | Fotos reales y platos más recomendados en la página del lugar                  | Fase 4, probado en el emulador                                                                        |
+| 2026-11-18 | «Cómo llegar» y proveedor de mapas                                             | MapLibre + OpenFreeMap (sin cuenta ni tarjeta); «Cómo llegar» abre la app de mapas del teléfono       |
+| 2026-11-18 | Probar la Fase 4 en el emulador                                                | Pestañas, Explorar (mapa, lista, cerca de mí, zona, categoría, pines) y página del lugar              |
+| 2026-11-18 | Explorar ordenaba por promedio simple (un solo 10 ganaba)                      | Orden por promedio bayesiano (`…_explore_bayesian_order`)                                             |
+| 2026-11-18 | «Cerca de mí» fallaba si se rechazaba la precisión de Google                   | Reintento directo al GPS y, si no, la última ubicación de los últimos 5 minutos                       |
 | 2026-11-14 | Probar la Fase 3 en el emulador                                                | Publicada con foto, plato y datos prácticos; sin conexión + cierre forzado: se publicó sola al volver |
 | 2026-11-14 | Conectar «Publicar visita» y «¿Dónde comiste?» en Inicio                       | Fase 3                                                                                                |
 | 2026-11-14 | Que las visitas reporten pagos y estacionamiento                               | Bloque opcional «Lo práctico» (sin planta, decisión del fundador)                                     |

@@ -962,6 +962,30 @@ export type Database = {
         }
         Returns: string
       }
+      explore_places: {
+        Args: {
+          p_area_id?: number
+          p_city_id: number
+          p_lat?: number
+          p_limit?: number
+          p_lng?: number
+          p_radius_m?: number
+          p_tag_slug?: string
+        }
+        Returns: {
+          area_name: string
+          avg_rating: number
+          distance_m: number
+          id: string
+          kind: Database["public"]["Enums"]["place_kind"]
+          lat: number
+          lng: number
+          name: string
+          raters: number
+          service_modes: Database["public"]["Enums"]["service_mode"][]
+          slug: string
+        }[]
+      }
       immutable_unaccent: { Args: { p: string }; Returns: string }
       import_google_place: {
         Args: {
@@ -987,6 +1011,7 @@ export type Database = {
       }
       next_place_slug: { Args: { p_name: string }; Returns: string }
       place_slug_base: { Args: { p_name: string }; Returns: string }
+      place_summary: { Args: { p_place_id: string }; Returns: Json }
       places_nearby: {
         Args: {
           lat: number

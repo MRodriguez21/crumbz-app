@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   caracasDay,
   formatDate,
+  formatDistance,
   formatScore,
   formatUsd,
   formatUsdRange,
@@ -103,5 +104,21 @@ describe('formatVisitDay', () => {
   });
   it('shows weekday, day and month for older days', () => {
     expect(formatVisitDay('2026-11-10', now)).toBe('mar 10 nov');
+  });
+});
+
+describe('formatDistance', () => {
+  it.each([
+    [3, '10 m'],
+    [347, '350 m'],
+    [999, '1,0 km'],
+    [1000, '1,0 km'],
+    [1234, '1,2 km'],
+    [9960, '10 km'],
+    [-5, ''],
+    [Number.NaN, ''],
+    [12500, '13 km'],
+  ])('formats %d m as %s', (m, expected) => {
+    expect(formatDistance(m)).toBe(expected);
   });
 });

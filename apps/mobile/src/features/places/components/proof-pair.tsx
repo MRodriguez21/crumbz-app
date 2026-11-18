@@ -25,10 +25,11 @@ const proofText = (f: ProofFact) => {
   if (f.status === 'unknown') return 'sin datos aún';
   if (f.status === 'stated') return 'sin confirmar';
   const n = f.visits ?? 0;
+  const visits = n === 1 ? '1 visita' : `${n} visitas`;
   return {
-    average: `promedio de ${n} visitas`,
-    reported: `reportado en ${n} visitas`,
-    confirmed: `confirmado en ${n} visitas`,
+    average: `promedio de ${visits}`,
+    reported: `reportado en ${visits}`,
+    confirmed: `confirmado en ${visits}`,
   }[f.basis ?? 'confirmed'];
 };
 

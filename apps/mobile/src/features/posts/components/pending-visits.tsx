@@ -105,7 +105,7 @@ export function PendingVisits({ placeId, limit = DEFAULT_LIMIT, showAll }: Props
       {hidden > 0 ? (
         <RowAction
           label={hidden === 1 ? 'Ver 1 más en tu perfil' : `Ver ${hidden} más en tu perfil`}
-          onPress={() => router.push('/profile')}
+          onPress={() => router.navigate('/profile')}
         />
       ) : null}
 

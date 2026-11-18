@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
-import { ArrowLeft, ChevronLeft, Pencil } from 'lucide-react-native';
+import { Pencil } from 'lucide-react-native';
 import { useState } from 'react';
-import { Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Avatar } from '@/components/avatar';
@@ -16,8 +16,6 @@ import { avatarUrl } from '@/features/profile/avatar';
 import { useCities, useMyProfile } from '@/features/profile/queries';
 import { space, useColors } from '@/theme';
 
-const BackIcon = Platform.OS === 'ios' ? ChevronLeft : ArrowLeft;
-
 export default function MyProfileScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
@@ -30,7 +28,6 @@ export default function MyProfileScreen() {
   if (!profile) return null;
 
   const city = cities?.find((x) => x.id === profile.home_city_id)?.name;
-  const back = () => (router.canGoBack() ? router.back() : router.replace('/'));
 
   const stats = [
     { label: 'visitas', value: profile.posts_count },
@@ -41,7 +38,8 @@ export default function MyProfileScreen() {
   return (
     <View style={[styles.screen, { backgroundColor: c.background, paddingTop: insets.top }]}>
       <View style={styles.appBar}>
-        <IconButton icon={BackIcon} accessibilityLabel="Volver" onPress={back} />
+        {/* Tab root: no back button; edit sits on the right. */}
+        <View />
         <IconButton
           icon={Pencil}
           accessibilityLabel="Editar perfil"
@@ -49,9 +47,7 @@ export default function MyProfileScreen() {
         />
       </View>
 
-      <ScrollView
-        contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + space.xl }]}
-      >
+      <ScrollView contentContainerStyle={[styles.content, { paddingBottom: space.xl }]}>
         <View style={styles.identity}>
           <Avatar uri={avatarUrl(profile.avatar_path)} name={profile.display_name} size={88} />
           <View style={styles.names}>

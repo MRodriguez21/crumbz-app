@@ -81,3 +81,13 @@ export function formatVisitDay(day: string, now: Date = new Date()): string {
     .replace(/[.,]/g, '')
     .replace(' de ', ' ');
 }
+
+/** Distance for lists: `350 m` under a kilometre, then `1,2 km` (one decimal below 10 km). */
+export function formatDistance(meters: number): string {
+  // A display helper must never crash a row: unknown distance shows nothing.
+  if (!Number.isFinite(meters) || meters < 0) return '';
+  const rounded = Math.max(10, Math.round(meters / 10) * 10);
+  if (rounded < 1000) return `${rounded} m`;
+  const km = Math.round(meters / 100) / 10; // one decimal
+  return km < 10 ? `${km.toFixed(1).replace('.', ',')} km` : `${Math.round(km)} km`;
+}

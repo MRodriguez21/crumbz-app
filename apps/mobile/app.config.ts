@@ -43,6 +43,8 @@ const config: ExpoConfig = {
   },
   plugins: [
     'expo-router',
+    // Maps without a Google key: MapLibre + OpenStreetMap tiles (OpenFreeMap).
+    '@maplibre/maplibre-react-native',
     [
       'expo-splash-screen',
       {

@@ -16,7 +16,7 @@ export function ScoreClaim({ score }: { score: PlaceProfile['score'] }) {
   return (
     <View
       accessible
-      accessibilityLabel={`Puntaje ${value} de 10, de ${score.raters} personas reales. Solo cuenta la última visita de cada una.`}
+      accessibilityLabel={`Puntaje ${value} de 10, de ${score.raters} ${score.raters === 1 ? 'persona real' : 'personas reales'}. Solo cuenta la última visita de cada una.`}
       style={[styles.box, { backgroundColor: c.surface }]}
     >
       <View style={styles.top}>
@@ -46,9 +46,9 @@ export function ScoreClaim({ score }: { score: PlaceProfile['score'] }) {
       </View>
       <Text variant="bodySmall" tone="textMuted">
         <Text variant="bodySmall" tone="proof" style={styles.strong}>
-          {score.raters} personas reales
+          {score.raters === 1 ? '1 persona real' : `${score.raters} personas reales`}
         </Text>
-        {' · solo cuenta la última visita de cada una'}
+        {score.raters === 1 ? ' · su última visita' : ' · solo cuenta la última visita de cada una'}
       </Text>
     </View>
   );

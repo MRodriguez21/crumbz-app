@@ -1,15 +1,13 @@
 import { router } from 'expo-router';
 import { Plus, Search } from 'lucide-react-native';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Avatar } from '@/components/avatar';
 import { Button } from '@/components/button';
 import { Text } from '@/components/text';
 import { PendingVisits } from '@/features/posts/components/pending-visits';
-import { avatarUrl } from '@/features/profile/avatar';
 import { useMyProfile } from '@/features/profile/queries';
-import { space, touchTarget, useColors } from '@/theme';
+import { space, useColors } from '@/theme';
 
 // Placeholder until the feed (phase 6) lands.
 export default function HomeScreen() {
@@ -25,26 +23,11 @@ export default function HomeScreen() {
         {
           backgroundColor: c.background,
           paddingTop: insets.top,
-          paddingBottom: insets.bottom + space.xl,
+          // The tab bar handles the bottom inset.
+          paddingBottom: space.xl,
         },
       ]}
     >
-      <View style={styles.appBar}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Mi perfil"
-          onPress={() => router.push('/profile')}
-          style={styles.profileButton}
-          hitSlop={4}
-        >
-          <Avatar
-            uri={avatarUrl(profile?.avatar_path)}
-            name={profile?.display_name ?? ''}
-            size={36}
-          />
-        </Pressable>
-      </View>
-
       {/* Scrolls when pending visits make it taller than the screen; otherwise the
           greeting and actions sit at the bottom, in thumb reach. */}
       <ScrollView
@@ -87,13 +70,6 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, paddingHorizontal: space.lg },
-  appBar: { flexDirection: 'row', justifyContent: 'flex-end' },
-  profileButton: {
-    width: touchTarget,
-    height: touchTarget,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   scroll: { flex: 1 },
   body: { flexGrow: 1, justifyContent: 'flex-end', gap: space.xl },
   copy: { gap: space.sm },

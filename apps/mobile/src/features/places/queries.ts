@@ -1,4 +1,4 @@
-import type { PlaceCreateInput } from '@crumbz/shared';
+import type { PaymentMethod, PlaceCreateInput, PlaceKind, ServiceMode } from '@crumbz/shared';
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FunctionsHttpError } from '@supabase/supabase-js';
 
@@ -12,6 +12,22 @@ export const placeKeys = {
   search: (q: string, cityId: number | null) => ['places', 'search', cityId, q] as const,
   google: (q: string) => ['places', 'google', q] as const,
   detail: (slug: string) => ['places', 'detail', slug] as const,
+  summary: (placeId: string) => ['places', 'summary', placeId] as const,
+  explore: (
+    cityId: number | null,
+    near: { lat: number; lng: number } | null,
+    areaId: number | null,
+    tagSlug: string | null,
+  ) =>
+    [
+      'places',
+      'explore',
+      cityId,
+      // Round so small GPS jitter doesn't refetch.
+      near ? [near.lat.toFixed(3), near.lng.toFixed(3)] : null,
+      areaId,
+      tagSlug,
+    ] as const,
 };
 
 const MIN_QUERY = 2;
@@ -192,3 +208,87 @@ export function usePlace(slug: string | undefined) {
 }
 
 export type PlaceDetail = NonNullable<ReturnType<typeof usePlace>['data']>;
+
+export type PlaceSummary = {
+  location: { lat: number; lng: number } | null;
+  visits: number;
+  /** People counted for the score (each one's latest visit). */
+  raters: number;
+  avg_rating: number | null;
+  distribution: { label: string; count: number }[];
+  spend: { low: number; high: number; visits: number } | null;
+  /** Visits that reported how they paid. */
+  payments_visits: number;
+  payments: { method: PaymentMethod; visits: number }[];
+  parking: { yes: number; no: number };
+  dishes: { id: string; name: string; recommended: number; mentions: number }[];
+  photos: { id: string; path: string; author: string }[];
+  recent: {
+    id: string;
+    rating: number;
+    mode: ServiceMode;
+    spend: number | null;
+    visited_on: string;
+    body: string | null;
+    created_at: string;
+    author: { username: string; display_name: string; avatar_path: string | null };
+    cover: string | null;
+  }[];
+};
+
+/** Everything the place page shows that comes from visits (place_summary RPC). */
+export function usePlaceSummary(placeId: string | undefined) {
+  return useQuery({
+    queryKey: placeKeys.summary(placeId ?? ''),
+    enabled: !!placeId,
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc('place_summary', { p_place_id: placeId! });
+      if (error) throw error;
+      // jsonb comes back untyped; the shape is defined by the RPC above.
+      return data as unknown as PlaceSummary;
+    },
+  });
+}
+
+export type ExploreFilters = {
+  cityId: number | null;
+  near: { lat: number; lng: number } | null;
+  areaId: number | null;
+  tagSlug: string | null;
+};
+
+/** One row of explore_places (lat/lng are null for places without a venue). */
+export type ExplorePlace = {
+  id: string;
+  slug: string;
+  name: string;
+  kind: PlaceKind;
+  service_modes: ServiceMode[];
+  area_name: string | null;
+  lat: number | null;
+  lng: number | null;
+  distance_m: number | null;
+  raters: number;
+  avg_rating: number | null;
+};
+
+/** Explore list and map pins (explore_places RPC). */
+export function useExplorePlaces({ cityId, near, areaId, tagSlug }: ExploreFilters) {
+  return useQuery({
+    queryKey: placeKeys.explore(cityId, near, areaId, tagSlug),
+    enabled: cityId != null,
+    staleTime: 60_000,
+    placeholderData: keepPreviousData,
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc('explore_places', {
+        p_city_id: cityId!,
+        p_lat: near?.lat,
+        p_lng: near?.lng,
+        p_area_id: areaId ?? undefined,
+        p_tag_slug: tagSlug ?? undefined,
+      });
+      if (error) throw error;
+      return data as unknown as ExplorePlace[];
+    },
+  });
+}
